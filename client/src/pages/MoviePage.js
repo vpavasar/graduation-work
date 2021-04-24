@@ -8,7 +8,8 @@ const releaseDateToString = releaseDate => {
     return `${date.getMonth()}/${date.getDay()}/${date.getFullYear()} (US)`;
 }
 
-const genresListToString = genres => {
+const genresListToString = (genres) => {
+    console.log('genres: ', typeof(genres));
     return genres.reduce((accumulator, currentValue) => {
         return accumulator + currentValue.name;
     }, '');
@@ -20,7 +21,7 @@ const runtimeToString = runtime => {
     return `${hours}h ${minutes}m`;
 }
 
-const releaseDateFullYear = releaseDate => {
+const releaseDateFullYear = (releaseDate = '2021-03-24') => {
     const date = new Date(releaseDate);
     return date.getFullYear();
 }
@@ -32,8 +33,8 @@ export const MoviePage = ({match}) => {
 
     useEffect(async () => {
         const response = await request(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`);
-        console.log('Is loading Movie page:', loading);
-        console.log('Response Movie page:', response);
+        console.log('MOVIE Loading:', loading);
+        console.log('MOVIE response:', response);
         setMovie(response);
     }, [])
 
@@ -42,26 +43,26 @@ export const MoviePage = ({match}) => {
     }
 
     const {
-        poster_path,
-        backdrop_path,
-        release_date,
-        genres,
-        runtime,
-        tagline,
-        overview
+        poster_path = '',
+        backdrop_path = '',
+        release_date = '2021-03-24',
+        genres = [],
+        runtime = 0,
+        tagline = '',
+        overview = ''
     } = movie;
 
     return (
         <div>
             <div className="backdropWrapper" style={{backgroundImage: `url("${BACKDROP_URL}${backdrop_path}")`}}>
                 <div className="backdropWrapperShadow">
-                    <Container style={{paddingTop: '30px', paddingBottom: '30px', display: 'flex', flexDirection: 'row'}}>
+                    <Container style={{paddingTop: '70px', paddingBottom: '70px', display: 'flex', flexDirection: 'row'}}>
                         <div>
                             <img src={`${POSTER_URL}${poster_path}`} className="moviePageMainPoster"/>
                         </div>
                         <div className='moviePageMainInfoWrapper'>
                             <div>
-                                <h2>{movie.original_title} <span>({releaseDateFullYear()})</span></h2>
+                                <h2>{movie.original_title} <span>({releaseDateFullYear(release_date)})</span></h2>
                             </div>
                             <div>
                                 <span>{releaseDateToString(release_date)}</span>

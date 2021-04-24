@@ -4,8 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-// import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import {AuthContext} from "../context/AuthContext";
 import {useHistory} from 'react-router-dom';
@@ -31,18 +31,34 @@ export function Navbar() {
         auth.logout();
         history.push('/');
     }
+    const goToMovies = () => {
+        history.push('/');
+    }
+    const goToTV = () => {
+        history.push('/tv');
+    }
+    const goToProfile = () => {
+        history.push(`/profile/${auth.userId}`);
+    }
+    const goToPeople = () => {
+        history.push('/person');
+    }
 
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    {/*<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">*/}
-                    {/*    <MenuIcon />*/}
-                    {/*</IconButton>*/}
+                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                       <MenuIcon />
+                    </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         Movies Searcher
                     </Typography>
-                    <Button color="inherit" onClick={logoutHandler}>Logout</Button>
+                    <Button color="inherit" onClick={goToMovies}>Movies</Button>
+                    <Button color="inherit" onClick={goToTV}>TV Shows</Button>
+                    <Button color="inherit" onClick={goToPeople}>People</Button>
+                    <Button color="inherit" onClick={goToProfile}>Profile</Button>
+                    <Button  onClick={logoutHandler}>Logout</Button>
                 </Toolbar>
             </AppBar>
         </div>

@@ -27,6 +27,9 @@ export const HomePage = () => {
 
     return (
         <Container>
+            <div>
+                <h2 className='pageTitle'>Popular Movies</h2>
+            </div>
             <div style={{display: 'flex', flexDirection: 'row', marginTop: '20px'}}>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                     <SortFilter/>
