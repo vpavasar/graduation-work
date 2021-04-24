@@ -1,0 +1,43 @@
+.film-card {
+    width: 200px;
+    height: 370px;
+
+    border-radius: 7px;
+
+    background-color: #fff;
+    border: 1px solid #e3e3e3;
+
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 16px;
+}
+
+.film-card-poster {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    width: 200px;
+    height: 290px;
+}
+
+.film-card-poster:hover {
+    cursor: pointer;
+}
+
+.film-card-title {
+    margin: 0;
+    padding-top: 10px;
+    padding-left: 10px;
+
+    font-weight: 700;
+    text-decoration-style: solid;
+}
+
+.film-card-title:hover {
+    cursor: pointer;
+}
+
+.film-card-date {
+    padding-top: 5px;
+    padding-left: 10px;
+    margin: 0;
+    color: rgba(0,0,0,0.6);
+}

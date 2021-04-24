@@ -1,0 +1,84 @@
+/*@import "~materialize-css/dist/css/materialize.min.css";*/
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 260px;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: white;
+    border: 2px solid #e3e3e3;
+    border-radius: 7px;
+}
+
+.filters-container-title {
+    width: 260px;
+}
+
+.filters-container-title h2{
+    margin: 0;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.backdropWrapper{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    background-color: rgb(33, 38, 58);
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-position: calc(100% + 200px) 0%;
+    background-position-x: calc(100% + 200px);
+    background-position-y: 0%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom-color: rgb(43, 48, 66);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.backdropWrapperShadow{
+    width: 100%;
+    background-color: rgba(33, 34, 46, 0.84);
+}
+
+.moviePageMainPoster{
+    width: 300px;
+    height: 450px;
+    border-radius: 7px;
+}
+
+.dotPoint {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.moviePageMainInfoWrapper{
+    margin-top: 20px;
+    padding-left: 40px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    /*color: rgb(0, 0, 0);*/
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+}

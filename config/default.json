@@ -1,0 +1,5 @@
+{
+    "port": 5000,
+    "jwtSecret": "12345 qwert hardpassword",
+    "mongoUri": "mongodb+srv://vpava:1234qwer@cluster0.ykjmw.mongodb.net/app?retryWrites=true&w=majority"
+}

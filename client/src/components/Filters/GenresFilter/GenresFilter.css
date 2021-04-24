@@ -1,0 +1,73 @@
+.filter-genres {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-top: 20px;
+    padding: 15px;
+
+    width: 240px;
+    background-color: white;
+    border: 2px solid #e3e3e3;
+    border-radius: 7px;
+}
+
+.filter-genres p {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin: 0;
+    margin-bottom: 5.6px;
+}
+
+.filter-genres h3 {
+    margin-left: 0;
+}
+
+.genres {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    width: 260px;
+}
+
+.genre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    border-radius: 14px;
+    border-style: solid;
+    border-width: 0.2px;
+    border-color: rgb(128, 116, 118);
+
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 14.4px;
+    font-weight: 400;
+}
+
+.genre:hover {
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    background-color: rgb(1, 180, 228);
+}
+
+.selected-genre {
+    color: rgb(1, 180, 228);
+}
+
+.selected-genre:hover {
+    color: rgb(255, 255, 255);
+}
+
+.genre p {
+    margin: 0;
+    padding: 0;
+}

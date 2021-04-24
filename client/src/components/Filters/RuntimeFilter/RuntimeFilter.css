@@ -1,0 +1,9 @@
+.runtime-filter {
+    margin-top: 20px;
+    padding: 15px;
+
+    width: 240px;
+    background-color: white;
+    border: 2px solid #e3e3e3;
+    border-radius: 7px;
+}
