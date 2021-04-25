@@ -3,6 +3,7 @@ import { AuthContext } from './context/AuthContext';
 import { useAuth } from './hooks/auth.hook';
 import { useRoutes } from './routes';
 import {Navbar} from "./components/Navbar";
+import {PrimarySearchAppBar} from "./components/NewNavbar";
 //import 'materialize-css'
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
       token, userId, login, logout, isAuthenticated
     }}>
       <BrowserRouter>
-        { isAuthenticated && <Navbar/>}
+        { isAuthenticated && <PrimarySearchAppBar/>}
         <div>
           {routes}
         </div>

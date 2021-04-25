@@ -1,7 +1,8 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import './MovieCard.css';
 import {API_POSTER_URL} from '../../config.json';
+import reservePosterPath from '../../images/picture-grey.svg';
 
 function dateFormatting(date) {
     const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
@@ -12,19 +13,17 @@ function dateFormatting(date) {
 }
 
 function titleFormatting(title) {
-    return title.length <= 42 ? title : `${title.slice(0,40)}...`;
+    return title.length <= 47 ? title : `${title.slice(0,45)}...`;
 }
 
 function validPosterPath(path) {
-    const reservePosterPath = '../../images/picture-grey.svg';
-
     return path === null ? reservePosterPath : `${API_POSTER_URL}${path}`;
 }
 
 export function MovieCard({movie}) {
     let history = useHistory();
     const poster_path = validPosterPath(movie.poster_path);
-    const original_title = titleFormatting(movie.original_title);
+    const title = titleFormatting(movie.title);
     const release_date = dateFormatting(new Date(movie.release_date));
 
     const onClickHandler = () => {
@@ -36,7 +35,7 @@ export function MovieCard({movie}) {
             <div onClick={onClickHandler}>
                 <img src={poster_path}  className='film-card-poster'/>
             </div>
-            <p className='film-card-title' onClick={onClickHandler}>{original_title}</p>
+            <p className='film-card-title' onClick={onClickHandler}>{title}</p>
             <p className='film-card-date'>{release_date}</p>
         </div>
     )

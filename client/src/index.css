@@ -85,3 +85,80 @@
     font-size: 16px;
     font-family: "Source Sans Pro", Arial, sans-serif;
 }
+
+/* CharacterCard */
+.description-components-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.cast {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    margin-top: 30px;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+}
+
+.cast-title, .recommendations-title, .reviews-title, .videos-title{
+    font-weight: 600;
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+.cast .cards-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* RecomendationMovieCard */
+.recommendations {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-top: 50px;
+    font-size: 16px;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+}
+
+.recommendations-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Videos for movie */
+.videos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-top: 50px;
+    font-size: 16px;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+}
+.videos-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    border-radius: 10px 0 0 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.videoWrapper iframe{
+    border: none;
+}

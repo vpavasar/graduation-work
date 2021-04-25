@@ -49,10 +49,10 @@ export const HomePage = () => {
                         {movies.map((movie) => <MovieCard key={movie.id} movie={movie}/>)}
                     </div>
                     <div style={{margin: '20px'}}>
-                        <Pagination count={10} color="primary" size="large"/>
-                        <div style={{backgroundColor: 'rgb(1, 180, 228)', color: 'rgb(255, 255, 255)'}}>
-                            <p>Load More</p>
-                        </div>
+                            {/* <Pagination count={10} color="primary" size="large"/>
+                            <div style={{backgroundColor: 'rgb(1, 180, 228)', color: 'rgb(255, 255, 255)'}}>
+                                <p>Load More</p>
+                            </div> */}
                     </div>
                 </div>           
             </div>
