@@ -1,51 +1,35 @@
 import React, {useState} from 'react'
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import './UserScoreFilter.css';
 
-const marks = [
-    {
-        value: 0,
-        label: '0',
-    },
-    {
-        value: 1,
-    },
-    {
-        value: 2,
-    },
-    {
-        value: 3,
-    },
-    {
-        value: 4,
-    },
-    {
-        value: 5,
-        label: '5',
-    },
-    {
-        value: 6,
-    },
-    {
-        value: 7,
-    },
-    {
-        value: 8,
-    },
-    {
-        value: 9,
-    },
-    {
-        value: 10,
-        label: '10',
-    },
-];
+const makeMarks = () => {
+    const marks = [];
+
+    for(let i = 0; i <= 10; i++) {
+        const content = {
+            value: i
+        };
+    
+        if (i === 0 || !(i % 5)) content.label = `${i}`;
+    
+        marks.push(content);
+    }
+
+    return marks;
+}
+
+const StyledSlider = withStyles({
+    root: {
+        color: '#a0a8a3'
+    }
+})(Slider)
 
 export const UserScoreFilter = () => {
     const changeUserScore = () => console.log('changeUserScore');
 
-    const [value, setValue] = React.useState([0, 10]);
+    const [value, setValue] = useState([0, 10]);
     const valuetext = (value) => {
         return `${value}`;
     };
@@ -61,15 +45,16 @@ export const UserScoreFilter = () => {
             <Typography id="range-slider" gutterBottom>
                 User Score
             </Typography>
-            <Slider
+            <StyledSlider
                 value={value}
                 max={10}
-                marks={marks}
+                marks={makeMarks()}
                 step={1}
                 onChange={handleChange}
                 valueLabelDisplay="off"
                 aria-labelledby="range-slider"
                 getAriaValueText={valuetext}
+                color="#52af77"
             />
         </div>
     );

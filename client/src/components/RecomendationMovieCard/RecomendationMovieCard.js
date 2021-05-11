@@ -12,7 +12,7 @@ const validTitle = title => {
     return title.length<=25 ? title : title.slice(0,23)+'...';
 }
 
-const ratingToString = rating => `${rating*10}%`;
+const ratingToString = rating => `${Math.trunc(rating*10)}%`;
 
 export const RecomendationMovieCard = ({movie}) => {
     const backdrop_path = validBackdropPath(movie.backdrop_path);
