@@ -10,7 +10,10 @@ const schema = new Schema({
         favorite: [],
         watched: [],
         wish: []
-    }
+    },
+    avatarUrl: String,    
+    resetToken: String,
+    resetTokenExp: Date
 });
 
 module.exports = model('User', schema);
