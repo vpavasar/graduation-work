@@ -4,7 +4,6 @@ import { useAuth } from './hooks/auth.hook';
 import { useRoutes } from './routes';
 import {Navbar} from "./components/Navbar";
 import {PrimarySearchAppBar} from "./components/NewNavbar";
-//import 'materialize-css'
 
 function App() {
   const {token, userId, login, logout} = useAuth();
