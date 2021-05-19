@@ -78,7 +78,7 @@ router.delete('/clearList', async (req, res) => {
     try{
         const user = await User.findById(userId);
         user.lists[listName] = [];
-        user.save();
+        await user.save();
 
         res.status(200).json(user.lists[listName]);
     } catch (e) {
