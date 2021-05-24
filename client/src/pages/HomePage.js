@@ -30,7 +30,7 @@ export const HomePage = () => {
             <div>
                 <h2 className='pageTitle'>Popular Movies</h2>
             </div>
-            <div style={{display: 'flex', flexDirection: 'row', marginTop: '20px'}}>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px'}}>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                     <SortFilter/>
                     <div className='filters-container'>
@@ -44,8 +44,8 @@ export const HomePage = () => {
                         <RuntimeFilter/>
                     </div>
                 </div>
-                <div style={{marginLeft: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <div style={{display: 'grid', gridColumnGap: '20px', gridRowGap: '10px', gridTemplateColumns: 'repeat(4, 1fr)'}}>
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                    <div style={{display: 'grid', gridColumnGap: '25px', gridRowGap: '20px', gridTemplateColumns: 'repeat(4, 1fr)'}}>
                         {movies.map((movie) => <MovieCard key={movie.id} movie={movie}/>)}
                     </div>
                     <div style={{marginTop: '20px', display:"flex", justifyContent:"center"}}>

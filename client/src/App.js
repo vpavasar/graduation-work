@@ -4,6 +4,7 @@ import { useAuth } from './hooks/auth.hook';
 import { useRoutes } from './routes';
 import {Navbar} from "./components/Navbar";
 import {PrimarySearchAppBar} from "./components/NewNavbar";
+import Footer from './components/Footer';
 
 function App() {
   const {token, userId, login, logout} = useAuth();
@@ -18,9 +19,8 @@ function App() {
     }}>
       <BrowserRouter>
         { isAuthenticated && <PrimarySearchAppBar/>}
-        <div>
-          {routes}
-        </div>
+        {routes}
+        <Footer/>
       </BrowserRouter>
     </AuthContext.Provider>
   );
