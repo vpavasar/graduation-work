@@ -11,7 +11,6 @@ router.post('/', async (req, res) => {
         authorName,
         authorId
     } = req.body;
-    console.log("req.body: ", req.body);
 
     try {
         const comment = new Comment({
@@ -21,7 +20,6 @@ router.post('/', async (req, res) => {
             authorName,
             authorId
         });
-        console.log("New comment: ", req.body);
         
         await comment.save();
 
@@ -41,7 +39,6 @@ router.post('/answer', async (req, res) => {
         authorName,
         authorId
     } = req.body;
-    console.log("req.body: ", req.body);
 
     try {
         const comment = await Comment.findById(commentId);
@@ -83,7 +80,7 @@ router.get('/:object/:id', async (req, res) => {
     
     try {
         const comments = await Comment.find({ commentObjectId: id, commentObjectType: object });
-        // console.log(comments);
+        
         res.status(200).json(comments);
     } catch (e) {
         res.status(500).json({
@@ -126,4 +123,147 @@ router.delete('/answer', async (req, res) => {
         })
     }
 })
+
+router.post('/reaction', async (req, res) => {
+    const {
+        commentId,
+        isPositive,
+        userName,
+        userId
+    } = req.body;
+
+    try {
+        const comment = await Comment.findById(commentId);
+
+        const userReaction = {
+            isPositive,
+            userName,
+            userId
+        };
+
+        comment.reactions.users.push(userReaction);
+
+        if (isPositive) {
+            comment.reactions.likesCount = comment.reactions.likesCount + 1;
+        } else {
+            comment.reactions.dislikesCount = comment.reactions.dislikesCount + 1;
+        }
+        
+        await comment.save();
+
+        res.status(201).json({message: 'Реакция на комментарий создана', comment});
+    } catch (e) {
+        res.status(500).json({
+            message: `Server error (POST /comments/reaction)`,
+            error: e.message
+        })
+    }
+})
+
+router.delete('/reaction', async (req, res) => {
+    const {
+        commentId,
+        isPositive,
+        userId
+    } = req.body;
+
+    try {
+        const comment = await Comment.findById(commentId);
+        const users = comment.reactions.users.filter(user => user._id.toString() !== userId);
+        
+        comment.reactions.users = [...users];
+
+        if (isPositive) {
+            comment.reactions.likesCount = comment.reactions.likesCount - 1;
+        } else {
+            comment.reactions.dislikesCount = comment.reactions.dislikesCount - 1;
+        }
+        
+        await comment.save();
+
+        res.status(201).json({message: 'Реакция на комментарий удалена', comment});
+    } catch (e) {
+        res.status(500).json({
+            message: `Server error (DELETE /comments/reaction)`,
+            error: e.message
+        })
+    }
+})
+
+router.post('/answer/reaction', async (req, res) => {
+    const {
+        rootCommentId,
+        answerId,
+        isPositive,
+        userName,
+        userId
+    } = req.body;
+
+    try {
+        const comment = await Comment.findById(rootCommentId);
+
+        const userReaction = {
+            isPositive,
+            userName,
+            userId
+        };
+        
+        const answerIdx = comment.comments.findIndex(answer => answer._id.toString() === answerId);
+        
+        const answer = comment.comments[answerIdx];
+
+        answer.reactions.users.push(userReaction);
+
+        if (isPositive) {
+            answer.reactions.likesCount = answer.reactions.likesCount + 1;
+        } else {
+            answer.reactions.dislikesCount = answer.reactions.dislikesCount + 1;
+        }
+        
+        await comment.save();
+
+        res.status(201).json({message: 'Реакция на отзыв к комментарию создана', comment});
+    } catch (e) {
+        res.status(500).json({
+            message: `Server error (POST /comments/answer/reaction)`,
+            error: e.message
+        })
+    }
+})
+
+router.delete('/answer/reaction', async (req, res) => {
+    const {
+        rootCommentId,
+        answerId,
+        isPositive,
+        userId
+    } = req.body;
+
+    try {
+        const comment = await Comment.findById(rootCommentId);
+
+        const answerIdx = comment.comments.findIndex(answer => answer._id.toString() === answerId);
+        const answer = comment.comments[answerIdx];
+
+        const users = answer.reactions.users.filter(user => userId.toString() !== userId);
+
+        answer.reactions.users = [...users];
+
+        if (isPositive) {
+            answer.reactions.likesCount = answer.reactions.likesCount - 1;
+        } else {
+            answer.reactions.dislikesCount = answer.reactions.dislikesCount - 1;
+        }
+
+        await comment.save();
+
+        res.status(201).json({message: 'Реакция на отзыв к комментарию удалена', comment});
+    } catch (e) {
+        res.status(500).json({
+            message: `Server error (DELETE /comments/answer/reaction)`,
+            error: e.message
+        })
+    }
+})
+
 module.exports = router;

@@ -24,9 +24,61 @@ const schema = new Schema({
             date: {
                 type: Schema.Types.Date,
                 default: Date.now
+            },
+            reactions: {
+                likesCount: {
+                    type: Number,
+                    default: 0
+                },
+                dislikesCount: {
+                    type: Number,
+                    default: 0
+                },
+                users: [
+                    {
+                        isPositive: {
+                            type: Schema.Types.Boolean,
+                        },
+                        userName: String,
+                        userId: {
+                            type: Schema.Types.ObjectId,
+                            ref: 'User'
+                        },
+                        date: {
+                            type: Schema.Types.Date,
+                            default: Date.now
+                        }
+                    }
+                ]
             }
         }
-    ]
+    ],
+    reactions: {
+        likesCount: {
+            type: Number,
+            default: 0
+        },
+        dislikesCount: {
+            type: Number,
+            default: 0
+        },
+        users: [
+            {
+                isPositive: {
+                    type: Schema.Types.Boolean,
+                },
+                userName: String,
+                userId: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'User'
+                },
+                date: {
+                    type: Schema.Types.Date,
+                    default: Date.now
+                }
+            }
+        ]
+    }
 });
 
 module.exports = model('Comment', schema);
