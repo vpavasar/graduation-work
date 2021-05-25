@@ -20,14 +20,14 @@ function validPosterPath(path) {
     return path === null ? reservePosterPath : `${API_POSTER_URL}${path}`;
 }
 
-export function MovieCard({movie}) {
+export function MovieCard({movie, root_path}) {
     let history = useHistory();
     const poster_path = validPosterPath(movie.poster_path);
     const title = titleFormatting(movie.title);
     const release_date = dateFormatting(new Date(movie.release_date));
 
     const onClickHandler = () => {
-        history.push(`/movie/${movie.id}`);
+        history.push(`${root_path}/${movie.id}`);
     }
 
     return (

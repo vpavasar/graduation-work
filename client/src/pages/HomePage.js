@@ -46,7 +46,18 @@ export const HomePage = () => {
                 </div>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     <div style={{display: 'grid', gridColumnGap: '25px', gridRowGap: '20px', gridTemplateColumns: 'repeat(4, 1fr)'}}>
-                        {movies.map((movie) => <MovieCard key={movie.id} movie={movie}/>)}
+                        {
+                            movies.map(movie => {
+                                const data = {
+                                    title: movie.title,
+                                    poster_path: movie.poster_path,
+                                    release_date: movie.release_date,
+                                    id: movie.id
+                                }
+
+                                return <MovieCard key={movie.id} movie={data} root_path={'/movie'}/>;
+                            })
+                        }
                     </div>
                     <div style={{marginTop: '20px', display:"flex", justifyContent:"center"}}>
                             <PaginationCustom page={page} onChange={setPage}/>
