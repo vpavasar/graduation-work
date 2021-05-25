@@ -3,5 +3,6 @@
     "API_URL": "https://api.themoviedb.org/3/discover/movie",
     "API_POSTER_URL": "https://image.tmdb.org/t/p/w440_and_h660_face",
     "BACKDROP_URL": "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces",
-    "POSTER_URL": "https://image.tmdb.org/t/p/w440_and_h660_face"
+    "POSTER_URL": "https://image.tmdb.org/t/p/w440_and_h660_face",
+    "API_PEROSN_URL": "https://api.themoviedb.org/3/person"
 }

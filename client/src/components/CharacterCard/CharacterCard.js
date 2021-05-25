@@ -1,5 +1,8 @@
 import React from 'react';
 import './CharacterCard.css';
+
+import {useHistory} from "react-router-dom";
+
 import maleProfilePath from '../../images/user-grey.svg';
 import femaleProfilePath from '../../images/user-female.svg';
 
@@ -10,13 +13,20 @@ const validProfilePath = (profilePath, gender) => {
 }
 
 export const CharacterCard = ({character}) => {
+    let history = useHistory();
     const profilePath = validProfilePath(character.profile_path, character.gender);
+
+    const onClickHandler = () => {
+        // history.push(`/person/1245`);
+        history.push(`/person/${character.id}`);
+    }
+
     return (
         <div className='character-card'>
-            <div>
+            <div onClick={onClickHandler}>
                 <img src={profilePath}  className='character-card-img'/>
             </div>
-            <p className='character-card-title'>{character.name}</p>
+            <p className='character-card-title' onClick={onClickHandler}>{character.name}</p>
             <p className='character-card-date'>{character.character}</p>
         </div>
     )

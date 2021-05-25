@@ -1,8 +1,9 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory, NavLink} from 'react-router-dom';
+
 import {AuthContext} from '../context/AuthContext';
 import {useHttp} from '../hooks/http.hook.js';
-import {NavLink} from "react-router-dom";
+
 import Container from '@material-ui/core/Container';
 
 const getFullName = (user) => `${user.firstName} ${user.lastName}`;

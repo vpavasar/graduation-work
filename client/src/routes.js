@@ -1,11 +1,13 @@
 import React from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
+
 import {HomePage} from './pages/HomePage';
 import {ProfilePage} from './pages/ProfilePage';
 import {MoviePage} from './pages/MoviePage';
 import {TVShowsPage} from './pages/TVShowsPage';
 import {PeoplePage} from './pages/PeoplePage';
 import {SearchMoviesPage} from './pages/SearchMoviesPage';
+import {PersonPage} from './pages/PersonPage';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 
@@ -16,9 +18,10 @@ export const useRoutes = isAuthenticated => {
                 <Route path='/' exact component={HomePage} />
                 <Route path='/movie/:id' component={MoviePage} />
                 <Route path='/tv' component={TVShowsPage} />
-                <Route path='/person' component={PeoplePage} />
                 <Route path='/profile/:id' component={ProfilePage} />
                 <Route path='/search/:request' component={SearchMoviesPage} />
+                <Route path='/person/:id' component={PersonPage} />
+                <Route path='/person' component={PeoplePage} />
                 <Redirect to='/'/>
             </Switch>
         )
