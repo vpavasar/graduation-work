@@ -17,6 +17,10 @@
     border-top-right-radius: 7px;
 }
 
+.recommendation-card-img {
+    cursor: pointer;
+}
+
 .recommendation-card-info{
     display: flex;
     flex-direction: row;
@@ -30,6 +34,10 @@
 .recommendation-card-title {
     font-size: 16px;
     font-family: "Source Sans Pro", Arial, sans-serif;
+}
+
+.recommendation-card-title:hover {
+    cursor: pointer;
 }
 
 .recommendation-card-rating {

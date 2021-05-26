@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHistory, Link} from "react-router-dom";
 import './RecomendationMovieCard.css';
 import reserveBackdropPath from '../../images/picture-grey.svg';
 
@@ -15,19 +16,24 @@ const validTitle = title => {
 const ratingToString = rating => `${Math.trunc(rating*10)}%`;
 
 export const RecomendationMovieCard = ({movie}) => {
+    let history = useHistory();
     const backdrop_path = validBackdropPath(movie.backdrop_path);
     const title = validTitle(movie.title);
     const rating = ratingToString(movie.vote_average);
 
+    const onClickHandler = () => {
+        // history.push(`/movie/${movie.id}`);
+    }
+
     return (
         <div className='recommendation-card'>
             <div>
-                <img src={backdrop_path}  className='recommendation-card-img'/>
+                <img src={backdrop_path}  className='recommendation-card-img'  onClick={onClickHandler}/>
             </div>
             <div className='recommendation-card-info-wrapper'>
                 <div className='recommendation-card-info'>
                     <div className='recommendation-card-title'>
-                        <p>{title}</p>
+                        <p  onClick={onClickHandler}>{title}</p>
                     </div>
 
                     <div className='recommendation-card-rating'>
