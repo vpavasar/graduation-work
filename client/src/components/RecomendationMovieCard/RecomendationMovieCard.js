@@ -22,7 +22,7 @@ export const RecomendationMovieCard = ({movie}) => {
     const rating = ratingToString(movie.vote_average);
 
     const onClickHandler = () => {
-        // history.push(`/movie/${movie.id}`);
+        history.push(`/movie/${movie.id}`);
     }
 
     return (

@@ -27,7 +27,7 @@ export function MovieCard({movie, root_path}) {
     const release_date = dateFormatting(new Date(movie.release_date));
 
     const onClickHandler = () => {
-        history.push(`${root_path}/${movie.id}`);
+        history.push(`${root_path || '/movie'}/${movie.id}`);
     }
 
     return (

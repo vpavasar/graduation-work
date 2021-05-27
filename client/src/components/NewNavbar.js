@@ -128,15 +128,18 @@ export const PrimarySearchAppBar = () => {
   };
 
   const onSubmit = event => {
+    const request = event.target.value.trim();
+
     if(event.key !== 'Enter'){
       return;
     }
 
-    if(event.target.value.trim() === 0){
+    if(request.length === 0){
       return;
     }
 
-    history.push(`/search/${event.target.value.trim()}`);
+    history.push(`/search/${request}`);
+    event.target.value = '';
   }
 
   const menuId = 'primary-search-account-menu';

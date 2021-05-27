@@ -15,7 +15,7 @@ export const SearchMoviesPage = ({match}) => {
         console.log('Search loading:', loading);
         console.log('Search response:', response);
         setMovies(response.results)
-    }, [])
+    }, [requestValue])
 
     return (
         <Container style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>

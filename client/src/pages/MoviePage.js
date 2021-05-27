@@ -40,28 +40,28 @@ export const MoviePage = ({match}) => {
         console.log('MOVIE Loading:', loading);
         console.log('MOVIE response:', response);
         setMovie(response);
-    }, [])
+    }, [movieId])
 
     useEffect(async () => {
         const response = await request(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`);
         console.log('MOVIE (credit) Loading:', loading);
         console.log('MOVIE (credit) response:', response);
         setCast(response.cast);
-    }, [])
+    }, [movieId])
 
     useEffect(async () => {
         const response = await request(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&page=1`);
         console.log('MOVIE (recommendations) Loading:', loading);
         console.log('MOVIE (recommendations) response:', response);
         setRecommendations(response.results);
-    }, [])
+    }, [movieId])
     
     useEffect(async () => {
         const response = await request(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`);
         console.log('MOVIE (videos) Loading:', loading);
         console.log('MOVIE (videos) response:', response);
         setVideos(response.results);
-    }, [])
+    }, [movieId])
 
     if(loading){
         return <p>Loading...</p>
