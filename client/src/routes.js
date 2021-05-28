@@ -8,8 +8,8 @@ import {TVShowsPage} from './pages/TVShowsPage';
 import {PeoplePage} from './pages/PeoplePage';
 import {SearchMoviesPage} from './pages/SearchMoviesPage';
 import {PersonPage} from './pages/PersonPage';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
+import {SignIn} from './pages/SignIn';
+import {SignUp} from './pages/SignUp';
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {

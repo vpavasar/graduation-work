@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export const SignUp = () => {
   const {request} = useHttp();
   const [form, setForm] = useState({
     firstName: '',

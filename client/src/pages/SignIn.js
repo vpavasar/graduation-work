@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export const SignIn = () => {
   const auth = useContext(AuthContext)
   const {request} = useHttp();
   const [form, setForm] = useState({
