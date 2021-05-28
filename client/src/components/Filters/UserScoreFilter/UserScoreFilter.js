@@ -34,9 +34,7 @@ export const UserScoreFilter = () => {
         return `${value}`;
     };
     const handleChange = (event, newValue) => {
-        console.log('User score:', newValue);
         setValue(newValue);
-
         changeUserScore(newValue);
     };
 
@@ -54,7 +52,6 @@ export const UserScoreFilter = () => {
                 valueLabelDisplay="off"
                 aria-labelledby="range-slider"
                 getAriaValueText={valuetext}
-                color="#52af77"
             />
         </div>
     );

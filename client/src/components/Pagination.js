@@ -1,23 +1,31 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 
 export const PaginationCustom = ({page = 1, onChange}) => {
-    const handleChange = (event, value) => {
-        onChange(value);
-        document.documentElement.scrollTop = 0;
+  const siblingCount = 2;
+
+  const handleChange = (event, value) => {
+      onChange(value);
+      document.documentElement.scrollTop = 0;
+  }
+
+  const StyledPagination = withStyles({
+    root: {
+        color: '#a0a8a3'
     }
+})(Pagination)
 
   return (
     <div>
-        <Pagination 
+        <StyledPagination 
             count={5} 
             page={page} 
             onChange={handleChange} 
-            color={'rgba(0, 0, 0, 0.84)'}
             size="large" 
             showFirstButton 
             showLastButton 
-            siblingCount='2' 
+            siblingCount={siblingCount} 
         />
     </div>
   );

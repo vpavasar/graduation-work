@@ -27,10 +27,12 @@ export const HomePage = () => {
     useEffect(() => {
         fetchMovies();
     }, [page, fetchMovies])
-
+    console.log('isBag 1', loading);
     if (loading) {
         return <LinearProgress/>
     }
+
+    console.log('isBag', loading);
 
     return (
         <Container style={{marginBottom: '20px'}}>
