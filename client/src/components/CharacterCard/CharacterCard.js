@@ -24,7 +24,7 @@ export const CharacterCard = ({character}) => {
     return (
         <div className='character-card'>
             <div onClick={onClickHandler}>
-                <img src={profilePath}  className='character-card-img'/>
+                <img src={profilePath}  className='character-card-img' alt='character-profile'/>
             </div>
             <p className='character-card-title' onClick={onClickHandler}>{character.name}</p>
             <p className='character-card-date'>{character.character}</p>
