@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 
 import {API_KEY, API_PEROSN_URL} from '../config.json';
+import PictureGrey from '../images/picture-grey.svg';
 
 import Container from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -19,7 +20,7 @@ const getCurrentAge = (dob) => {
 }
 
 const getListNames = names => {
-    return names ? names.map( (name, idx) => <li style={{listStyleType: 'none'}} key={idx} itemprop="additionalName">{name}</li>) : null;
+    return names ? names.map( (name, idx) => <li style={{listStyleType: 'none'}} key={idx} itemProp="additionalName">{name}</li>) : null;
 }
 
 const styles = {
@@ -72,7 +73,7 @@ export const PersonPage = ({match}) => {
         return <LinearProgress/>
     }
 
-    const profilePath = `https://image.tmdb.org/t/p/w300_and_h450_bestv2${personInfo.profile_path}`
+    const profilePath = `https://image.tmdb.org/t/p/w300_and_h450_bestv2${personInfo.profile_path}` || PictureGrey;
 
     return (
         <Container>

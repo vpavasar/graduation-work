@@ -13,7 +13,7 @@ function dateFormatting(date) {
 }
 
 function titleFormatting(title) {
-    return title.length <= 42 ? title : `${title.slice(0,40)}...`;
+    return title.length <= 39 ? title : `${title.slice(0,37)}...`;
 }
 
 function validPosterPath(path) {
