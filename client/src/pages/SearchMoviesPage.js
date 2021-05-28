@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react'
-import {NavLink} from "react-router-dom";
+import React, {useState, useEffect, useCallback} from 'react'
 import Container from '@material-ui/core/Container';
 import MovieCard from '../components/MovieCard';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import {useHttp} from '../hooks/http.hook';
 import {API_KEY} from '../config.json';
 
@@ -10,12 +10,20 @@ export const SearchMoviesPage = ({match}) => {
     const {loading, request} = useHttp();
     const [movies, setMovies] = useState([]);
 
-    useEffect(async () => {
-        const response = await request(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${requestValue}`);
-        console.log('Search loading:', loading);
-        console.log('Search response:', response);
-        setMovies(response.results)
-    }, [requestValue])
+    const fetchMovies = useCallback(async () => {
+        try {
+          const fetched = await request(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${requestValue}`);
+          setMovies(fetched.results);
+        } catch (e) {}
+      }, [requestValue, request])
+
+    useEffect(() => {
+        fetchMovies();
+    }, [requestValue, fetchMovies]);
+
+    if (loading) {
+        return <LinearProgress/>;
+    }
 
     return (
         <Container style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>

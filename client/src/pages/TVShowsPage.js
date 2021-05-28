@@ -1,31 +1,32 @@
-import React, {useState, useEffect} from 'react'
-import {NavLink} from "react-router-dom";
-
+import React, {useState, useEffect, useCallback} from 'react'
 import {API_KEY} from '../config.json';
 import {useHttp} from '../hooks/http.hook';
 
 import Container from '@material-ui/core/Container';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import MovieCard from '../components/MovieCard';
-import SortFilter from '../components/Filters/SortFilter';
-import DateFilter from '../components/Filters/DateFilter';
-import GenresFilter from '../components/Filters/GenresFilter';
-import UserScoreFilter from '../components/Filters/UserScoreFilter';
-import MinUserVotesFilter from '../components/Filters/MinUserVotesFilter';
-import RuntimeFilter from '../components/Filters/RuntimeFilter';
 import {PaginationCustom} from '../components/Pagination';
 
 export const TVShowsPage = () => {
     const {loading, request} = useHttp();
     const [serials, setSerials] = useState([]);
     const [page, setPage] = useState(1);
+    
+    const fetchSerials = useCallback(async () => {
+        try {
+          const fetched = await request(`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
+          setSerials(fetched.results);
+        } catch (e) {}
+      }, [page, request])
 
-    useEffect(async () => {
-        const response = await request(`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
-        console.log('Is loading TV:', loading);
-        console.log('Response TV:', response);
-        setSerials(response.results)
-    }, [page])
+    useEffect(() => {
+        fetchSerials();
+    }, [page, fetchSerials]);
+
+    if (loading) {
+        return <LinearProgress/>;
+    }
 
     return (
         <Container style={{display: 'flex', flexDirection: 'column', alignItems: "center"}}>
@@ -57,5 +58,4 @@ export const TVShowsPage = () => {
             </div>
         </Container>
     )
-}
-{/* <NavLink to='/'>Home page</NavLink> */}
+}   

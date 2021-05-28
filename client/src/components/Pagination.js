@@ -13,12 +13,11 @@ export const PaginationCustom = ({page = 1, onChange}) => {
             count={5} 
             page={page} 
             onChange={handleChange} 
-            color="primary" 
+            color={'rgba(0, 0, 0, 0.84)'}
             size="large" 
             showFirstButton 
             showLastButton 
             siblingCount='2' 
-            color={'rgba(0, 0, 0, 0.84)'}
         />
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import {useHistory, Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import './RecomendationMovieCard.css';
 import reserveBackdropPath from '../../images/picture-grey.svg';
 
@@ -28,7 +28,7 @@ export const RecomendationMovieCard = ({movie}) => {
     return (
         <div className='recommendation-card'>
             <div>
-                <img src={backdrop_path}  className='recommendation-card-img'  onClick={onClickHandler}/>
+                <img src={backdrop_path} alt='movie-poster' className='recommendation-card-img'  onClick={onClickHandler}/>
             </div>
             <div className='recommendation-card-info-wrapper'>
                 <div className='recommendation-card-info'>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Container from '@material-ui/core/Container';
 import {useHttp} from '../hooks/http.hook';
 import MovieCard from '../components/MovieCard';
@@ -6,11 +6,10 @@ import SortFilter from '../components/Filters/SortFilter';
 import DateFilter from '../components/Filters/DateFilter';
 import GenresFilter from '../components/Filters/GenresFilter';
 import UserScoreFilter from '../components/Filters/UserScoreFilter';
-import MinUserVotesFilter from '../components/Filters/MinUserVotesFilter';
 import RuntimeFilter from '../components/Filters/RuntimeFilter';
 import {PaginationCustom} from '../components/Pagination';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import {API_KEY} from '../config.json';
-import Grid from "@material-ui/core/Grid";
 
 export const HomePage = () => {
     const {loading, request} = useHttp();
@@ -18,12 +17,20 @@ export const HomePage = () => {
     const [page, setPage] = useState(1);
     // const [filters, setFilters] = useState({});
 
-    useEffect(async () => {
-        const response = await request(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
-        console.log('Is loading Home:', loading);
-        console.log('Response:', response);
-        setMovies(response.results)
-    }, [page])
+    const fetchMovies = useCallback(async () => {
+        try {
+          const fetched = await request(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
+          setMovies(fetched.results)
+        } catch (e) {}
+    }, [page, request])
+
+    useEffect(() => {
+        fetchMovies();
+    }, [page, fetchMovies])
+
+    if (loading) {
+        return <LinearProgress/>
+    }
 
     return (
         <Container style={{marginBottom: '20px'}}>
@@ -40,7 +47,6 @@ export const HomePage = () => {
                         <DateFilter/>
                         <GenresFilter/>
                         <UserScoreFilter/>
-                        {/* <MinUserVotesFilter/> */}
                         <RuntimeFilter/>
                     </div>
                 </div>
@@ -70,9 +76,3 @@ export const HomePage = () => {
         </Container>
     )
 }
-
-
-{/* <div>
-            <h1>Home page</h1>
-            <NavLink to='/profile'>Profile page</NavLink>
-        </div> */}

@@ -11,8 +11,6 @@ function App() {
   const isAuthenticated = !!token;
   const routes = useRoutes(isAuthenticated);
 
-  console.log('Is auth:', !!token);
-
   if (!ready) {
     return <LinearProgress />
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import './MovieCard.css';
 import {API_POSTER_URL} from '../../config.json';
 import reservePosterPath from '../../images/picture-grey.svg';
@@ -33,7 +33,7 @@ export function MovieCard({movie, root_path}) {
     return (
         <div className='film-card'>
             <div onClick={onClickHandler}>
-                <img src={poster_path}  className='film-card-poster'/>
+                <img src={poster_path} alt='movie-poster' className='film-card-poster'/>
             </div>
             <p className='film-card-title' onClick={onClickHandler}>{title}</p>
             <p className='film-card-date'>{release_date}</p>

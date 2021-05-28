@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 
 import {API_KEY, API_PEROSN_URL} from '../config.json';
-import {useHttp} from '../hooks/http.hook';
 
 import Container from '@material-ui/core/Container';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const splitedBiography = biography => {
     return biography ? biography.split('\n\n').map( (row, idx) => <p key={idx} style={styles.personInfo}>{row}</p>) : '';
@@ -49,19 +49,27 @@ const styles = {
 
 export const PersonPage = ({match}) => {
     const personId = match.params.id;
-    const {loading, request} = useHttp();
-
+    const [loading, setLoading] = useState(true);
     const [personInfo, setPersonInfo] = useState({});
 
-    useEffect(async () => {
-        const response = await request(`${API_PEROSN_URL}/${personId}?api_key=${API_KEY}&language=en-US`);
-        console.log('Person Loading:', loading);
-        console.log('Person info:', response);
-        setPersonInfo(response);
-    }, [])
-    console.log('Person Loading 2:', loading);
+    const fetchPersonInfo = useCallback(async () => {
+        try {
+          const fetched = await fetch(`${API_PEROSN_URL}/${personId}?api_key=${API_KEY}&language=en-US`);
+          const data = await fetched.json();
+          setPersonInfo(data)
+        } catch (e) {}
+    }, [personId])
+
+    useEffect(() => {
+        setLoading(true);
+
+        fetchPersonInfo();      
+
+        setLoading(false);
+    }, [personId, setLoading, fetchPersonInfo])
+
     if(loading) {
-        return <p>Загрузка...</p>
+        return <LinearProgress/>
     }
 
     const profilePath = `https://image.tmdb.org/t/p/w300_and_h450_bestv2${personInfo.profile_path}`
@@ -71,7 +79,7 @@ export const PersonPage = ({match}) => {
             <div style={styles.container}>
                 <div>
                     <div>
-                        <img src={profilePath} style={styles.profilePoster}/>
+                        <img src={profilePath} alt='person-profile' style={styles.profilePoster}/>
                     </div>
 
                     <h3>Personal Info</h3>

@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {useHttp} from '../hooks/http.hook';
+import React, {useEffect, useState, useCallback} from 'react';
 import Container from '@material-ui/core/Container';
 import {API_KEY, BACKDROP_URL, POSTER_URL} from '../config.json';
 import CharacterCard from '../components/CharacterCard';
 import RecomendationMovieCard from '../components/RecomendationMovieCard';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const releaseDateToString = releaseDate => {
     const date = new Date(releaseDate);
@@ -29,42 +29,57 @@ const releaseDateFullYear = (releaseDate = '2021-03-24') => {
 
 export const MoviePage = ({match}) => {
     const movieId = match.params.id;
-    const {loading, request} = useHttp();
+    const [loading, setLoading] = useState(true);
     const [movie, setMovie] = useState({});
     const [cast, setCast] = useState([]);
     const [recommendations, setRecommendations] = useState([]);
     const [videos, setVideos] = useState([]);
 
-    useEffect(async () => {
-        const response = await request(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`);
-        console.log('MOVIE Loading:', loading);
-        console.log('MOVIE response:', response);
-        setMovie(response);
+    const fetchMovie = useCallback(async () => {
+        try {
+          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`);
+          const data = await fetched.json();
+          setMovie(data)
+        } catch (e) {}
     }, [movieId])
 
-    useEffect(async () => {
-        const response = await request(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`);
-        console.log('MOVIE (credit) Loading:', loading);
-        console.log('MOVIE (credit) response:', response);
-        setCast(response.cast);
+    const fetchCast = useCallback(async () => {
+        try {
+          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`);
+          const data = await fetched.json();
+          setCast(data.cast);
+        } catch (e) {}
     }, [movieId])
 
-    useEffect(async () => {
-        const response = await request(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&page=1`);
-        console.log('MOVIE (recommendations) Loading:', loading);
-        console.log('MOVIE (recommendations) response:', response);
-        setRecommendations(response.results);
+    const fetchRecommendations = useCallback(async () => {
+        try {
+          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&page=1`);
+          const data = await fetched.json();
+          setRecommendations(data.results);
+        } catch (e) {}
     }, [movieId])
-    
-    useEffect(async () => {
-        const response = await request(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`);
-        console.log('MOVIE (videos) Loading:', loading);
-        console.log('MOVIE (videos) response:', response);
-        setVideos(response.results);
+
+    const fetchVideos = useCallback(async () => {
+        try {
+          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`);
+          const data = await fetched.json();
+          setVideos(data.results);
+        } catch (e) {}
     }, [movieId])
+
+    useEffect(() => {
+        setLoading(true);
+
+        fetchMovie();
+        fetchCast();
+        fetchRecommendations();
+        fetchVideos();
+        
+        setLoading(false);
+    }, [movieId, setLoading, fetchMovie, fetchCast, fetchRecommendations, fetchVideos])
 
     if(loading){
-        return <p>Loading...</p>
+        return <LinearProgress/>
     }
 
     const {
@@ -84,7 +99,7 @@ export const MoviePage = ({match}) => {
                 <div className="backdropWrapperShadow">
                     <Container style={{paddingTop: '40px', paddingBottom: '40px', display: 'flex', flexDirection: 'row'}}>
                         <div>
-                            <img src={`${POSTER_URL}${poster_path}`} className="moviePageMainPoster"/>
+                            <img src={`${POSTER_URL}${poster_path}`} alt='movie-poster' className="moviePageMainPoster"/>
                         </div>
                         <div className='moviePageMainInfoWrapper'>
                             <div>
@@ -130,7 +145,7 @@ export const MoviePage = ({match}) => {
                             const url = `https://www.youtube.com/embed/${trailer.key}?controls=1`;
                             return(
                                 <div key={index} className='videoWrapper'>
-                                    <iframe width="530" height="300" src={url}/>
+                                    <iframe width="530" height="300" src={url} title={`https://www.youtube.com/embed/${trailer.key}`}/>
                                 </div>
                             )
                         })}
