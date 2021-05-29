@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useEffect, useCallback, useContext} from 'react'
 import {API_KEY} from '../config.json';
 import {useHttp} from '../hooks/http.hook';
+import {LocalizationContext, localizations} from '../context/LocalizationContext';
 
 import Container from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -12,6 +13,7 @@ export const TVShowsPage = () => {
     const {loading, request} = useHttp();
     const [serials, setSerials] = useState([]);
     const [page, setPage] = useState(1);
+    const {localization} = useContext(LocalizationContext);
     
     const fetchSerials = useCallback(async () => {
         try {
@@ -32,7 +34,7 @@ export const TVShowsPage = () => {
         <Container style={{display: 'flex', flexDirection: 'column', alignItems: "center"}}>
             <div>
                 <div style={{width: '100%', display: 'flex', flexDirection: 'row', alignItems: "flex-start"}}>
-                    <h2 className='pageTitle'>Popular TV Shows</h2>
+                    <h2 className='pageTitle'>{localization === localizations.EN ? 'Popular TV Shows' : 'Популярные сериалы'}</h2>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px'}}>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>

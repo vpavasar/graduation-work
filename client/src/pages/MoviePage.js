@@ -1,9 +1,11 @@
-import React, {useEffect, useState, useCallback} from 'react';
-import Container from '@material-ui/core/Container';
+import React, {useEffect, useState, useCallback, useContext} from 'react';
 import {API_KEY, BACKDROP_URL, POSTER_URL} from '../config.json';
+import {LocalizationContext, localizations} from '../context/LocalizationContext';
+
 import CharacterCard from '../components/CharacterCard';
 import RecomendationMovieCard from '../components/RecomendationMovieCard';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Container from '@material-ui/core/Container';
 
 const releaseDateToString = releaseDate => {
     const date = new Date(releaseDate);
@@ -34,6 +36,7 @@ export const MoviePage = ({match}) => {
     const [cast, setCast] = useState([]);
     const [recommendations, setRecommendations] = useState([]);
     const [videos, setVideos] = useState([]);
+    const {localization} = useContext(LocalizationContext);
 
     const fetchMovie = useCallback(async () => {
         try {
@@ -117,7 +120,7 @@ export const MoviePage = ({match}) => {
                                 <p>{tagline}</p>
                             </div>
                             <div>
-                                <h3>Overview</h3>
+                                <h3>{localization === localizations.EN ? 'Overview' : 'Обзор'}</h3>
                                 <p>{overview}</p>
                             </div>
                         </div>
@@ -127,7 +130,7 @@ export const MoviePage = ({match}) => {
             <Container className='description-components-wrapper'>
                 <div className='cast'>
                     <div className='cast-title'>
-                        <h3>Top Billed Cast</h3>
+                        <h3>{localization === localizations.EN ? 'Top Billed Cast' : 'Самые популярные актеры'}</h3>
                     </div>
                     <div className='cards-wrapper'>
                         {cast.map(character => {
@@ -138,7 +141,7 @@ export const MoviePage = ({match}) => {
 
                 <div className='videos'>
                     <div className='videos-title'>
-                        <h3>Videos</h3>
+                        <h3>{localization === localizations.EN ? 'Videos' : 'Видео'}</h3>
                     </div>
                     <div className='videos-wrapper'>
                         {videos.map((trailer, index) => {
@@ -154,7 +157,7 @@ export const MoviePage = ({match}) => {
 
                 <div className='recommendations'>
                     <div className='recommendations-title'>
-                        <h3>Recommendations</h3>
+                        <h3>{localization === localizations.EN ? 'Recommendations' : 'Рекомендации'}</h3>
                     </div>
                     <div className='recommendations-wrapper'>
                         {recommendations.map(movie => {

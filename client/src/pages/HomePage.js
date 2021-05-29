@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useContext} from 'react';
 import Container from '@material-ui/core/Container';
 import {useHttp} from '../hooks/http.hook';
+import {LocalizationContext, localizations} from '../context/LocalizationContext';
 import MovieCard from '../components/MovieCard';
 import SortFilter from '../components/Filters/SortFilter';
 import DateFilter from '../components/Filters/DateFilter';
@@ -16,6 +17,7 @@ export const HomePage = () => {
     const [movies, setMovies] = useState([]);
     const [page, setPage] = useState(1);
     // const [filters, setFilters] = useState({});
+    const {localization} = useContext(LocalizationContext);
 
     const fetchMovies = useCallback(async () => {
         try {
@@ -35,7 +37,7 @@ export const HomePage = () => {
     return (
         <Container style={{marginBottom: '20px'}}>
             <div>
-                <h2 className='pageTitle'>Popular Movies</h2>
+                <h2 className='pageTitle'>{localization === localizations.EN ? 'Popular Movies' : 'Популярные фильмы'}</h2>
             </div>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px'}}>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>

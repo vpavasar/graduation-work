@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useContext} from 'react';
 
 import {API_KEY, API_PEROSN_URL} from '../config.json';
+import {LocalizationContext, localizations} from '../context/LocalizationContext';
 import PictureGrey from '../images/picture-grey.svg';
 
 import Container from '@material-ui/core/Container';
@@ -52,6 +53,7 @@ export const PersonPage = ({match}) => {
     const personId = match.params.id;
     const [loading, setLoading] = useState(true);
     const [personInfo, setPersonInfo] = useState({});
+    const {localization} = useContext(LocalizationContext);
 
     const fetchPersonInfo = useCallback(async () => {
         try {
@@ -83,14 +85,14 @@ export const PersonPage = ({match}) => {
                         <img src={profilePath} alt='person-profile' style={styles.profilePoster}/>
                     </div>
 
-                    <h3>Personal Info</h3>
+                    <h3>{localization === localizations.EN ? 'Personal Info' : 'Личная информация'}</h3>
                     <div>
-                        <p><strong><bdi>Known For</bdi></strong> {personInfo.known_for_department}</p>
-                        <p><strong><bdi>Known Credits</bdi></strong> 138</p>
-                        <p><strong><bdi>Gender</bdi></strong> {genderToString(personInfo.gender)}</p>
-                        <p><strong><bdi>Birthday</bdi></strong>   {personInfo.birthday} ({getCurrentAge(new Date(personInfo.birthday))} years old)</p>
-                        <p><strong><bdi>Place of Birth</bdi></strong> {personInfo.place_of_birth}</p>
-                        <p><strong><bdi>Also Known As</bdi></strong></p>
+                        <p><strong><bdi>{localization === localizations.EN ? 'Known For' : 'Известен'}</bdi></strong> {personInfo.known_for_department}</p>
+                        <p><strong><bdi>{localization === localizations.EN ? 'Known Credits' : 'Фильмов/сериалов с актером'}</bdi></strong> 138</p>
+                        <p><strong><bdi>{localization === localizations.EN ? 'Gender' : 'Пол'}</bdi></strong> {genderToString(personInfo.gender)}</p>
+                        <p><strong><bdi>{localization === localizations.EN ? 'Birthday' : 'День рождения'}</bdi></strong>   {personInfo.birthday} ({getCurrentAge(new Date(personInfo.birthday))} years old)</p>
+                        <p><strong><bdi>{localization === localizations.EN ? 'Place of Birth' : 'Место рождения'}</bdi></strong> {personInfo.place_of_birth}</p>
+                        <p><strong><bdi>{localization === localizations.EN ? 'Also Known As' : 'Также известен как'}</bdi></strong></p>
                         <ul style={{margin: '0', padding: '0'}}>
                             {
                                 getListNames(personInfo.also_known_as)
@@ -105,7 +107,7 @@ export const PersonPage = ({match}) => {
                     </div>
 
                     <div style={styles.biographyContainer}>
-                        <h3>Biography</h3>
+                        <h3>{localization === localizations.EN ? 'Biography' : 'Биография'}</h3>
                         <div>
                             {splitedBiography(personInfo.biography)}
                         </div>

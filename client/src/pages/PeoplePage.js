@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback, useEffect, useContext} from 'react'
 
 import Container from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -6,6 +6,7 @@ import {PaginationCustom} from '../components/Pagination';
 
 import { PersonCard } from '../components/PersonCard';
 import {useHttp} from '../hooks/http.hook';
+import {LocalizationContext, localizations} from '../context/LocalizationContext';
 import {API_KEY} from '../config.json';
 
 export const PeoplePage = () => {
@@ -14,6 +15,7 @@ export const PeoplePage = () => {
     const [peopleList, setPeopleList] = useState([]);
 
     const {loading, request} = useHttp();
+    const {localization} = useContext(LocalizationContext);
     
     const fetchPeople = useCallback(async () => {
         try {
@@ -35,7 +37,7 @@ export const PeoplePage = () => {
     return (
         <Container className='peoplePageContainer'>
             <div className='peoplePageTitleWrapper'>
-                <h2 className='pageTitle'>Popular People</h2>
+                <h2 className='pageTitle'>{localization === localizations.EN ? 'Popular People' : 'Популярные актеры'}</h2>
             </div>
             
             <div className='peoplePageConentWrapper'>
@@ -46,7 +48,7 @@ export const PeoplePage = () => {
                 </div>
 
                 <div className='peoplePagePaginationWrapper'>
-                    <PaginationCustom page={page} onChange={setPage}/>
+                    <PaginationCustom page={page} onChange={setPage} totalPages={totalPages}/>
                 </div>
             </div>            
         </Container>

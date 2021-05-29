@@ -15,7 +15,12 @@ import MovieIcon from '@material-ui/icons/Movie';
 import TvIcon from '@material-ui/icons/Tv';
 import Button from '@material-ui/core/Button';
 import MoreIcon from '@material-ui/icons/MoreVert';
+// import LanguageIcon from '@material-ui/icons/Language';
+import TranslateIcon from '@material-ui/icons/Translate';
+// import GTranslateIcon from '@material-ui/icons/GTranslate';
+
 import {AuthContext} from "../context/AuthContext";
+import {LocalizationContext, localizations} from "../context/LocalizationContext";
 import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -85,15 +90,19 @@ const useStyles = makeStyles((theme) => ({
 export const PrimarySearchAppBar = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorLocalizationEl, setAnchorLocalizationEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
+  const isLocalizationMenuOpen = Boolean(anchorLocalizationEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const handleLocalizationMenuOpen = (event) => {
+    setAnchorLocalizationEl(event.currentTarget);
+  };
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -102,13 +111,29 @@ export const PrimarySearchAppBar = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+  const handleLocalizationMenuClose = () => {    
+    setAnchorLocalizationEl(null);
+    handleMobileMenuClose();
+  };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const auth = useContext(AuthContext);
+  const local = useContext(LocalizationContext);
+  
   const history = useHistory();
+
+  const toogleRusLoacl = () => {
+    local.toggleLoacalization(localizations.RUS);
+    handleLocalizationMenuClose();
+  }
+  const toogleEnLoacl = () => {
+    local.toggleLoacalization(localizations.EN);    
+    handleLocalizationMenuClose();
+  }
+
   const logoutHandler = () => {
       auth.logout();
       handleMenuClose();
@@ -142,6 +167,22 @@ export const PrimarySearchAppBar = () => {
     event.target.value = '';
   }
 
+  const localizationMenuId = 'primary-search-account-localization-menu';
+  const renderLocalizationMenu = (
+    <Menu
+      anchorEl={anchorLocalizationEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={localizationMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isLocalizationMenuOpen}
+      onClose={handleLocalizationMenuClose}
+    >
+      <MenuItem onClick={toogleRusLoacl}>Русский</MenuItem>
+      <MenuItem onClick={toogleEnLoacl}>English</MenuItem>
+    </Menu>
+  );
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -153,8 +194,8 @@ export const PrimarySearchAppBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={goToProfile}>Profile</MenuItem>
-      <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+      <MenuItem onClick={goToProfile}>{local.localization === localizations.EN ? 'Profile' : 'Профиль'}</MenuItem>
+      <MenuItem onClick={logoutHandler}>{local.localization === localizations.EN ? 'Logout' : 'Выйти'}</MenuItem>
     </Menu>
   );
 
@@ -178,7 +219,7 @@ export const PrimarySearchAppBar = () => {
             >
                 <MovieIcon />
             </IconButton>
-            <p>Movies</p>
+            <p>{local.localization === localizations.EN ? 'Movies' : 'Фильмы'}</p>
         </MenuItem>
         <MenuItem onClick={goToTV}>
             <IconButton
@@ -189,7 +230,7 @@ export const PrimarySearchAppBar = () => {
             >
                 <TvIcon />
             </IconButton>
-            <p>TV Shows</p>
+            <p>{local.localization === localizations.EN ? 'TV Shows' : 'Сериалы'}</p>
         </MenuItem>
         <MenuItem onClick={goToPeople}>
             <IconButton
@@ -200,8 +241,19 @@ export const PrimarySearchAppBar = () => {
             >
                 <RecentActorsIcon/>
             </IconButton>
-            <p>People</p>
+            <p>{local.localization === localizations.EN ? 'People' : 'Актёры'}</p>
         </MenuItem>
+      <MenuItem onClick={handleLocalizationMenuOpen}>
+        <IconButton
+          aria-label="localization"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <TranslateIcon />
+        </IconButton>
+        <p>Localization</p>
+      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -236,7 +288,7 @@ export const PrimarySearchAppBar = () => {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder={local.localization === localizations.EN ? 'Search…' : 'Поиск…'}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -247,9 +299,19 @@ export const PrimarySearchAppBar = () => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Button color="inherit" onClick={goToMovies}>Movies</Button>
-            <Button color="inherit" onClick={goToTV}>TV Shows</Button>
-            <Button color="inherit" onClick={goToPeople}>People</Button>
+            <Button color="inherit" onClick={goToMovies}>{local.localization === localizations.EN ? 'Movies' : 'Фильмы'}</Button>
+            <Button color="inherit" onClick={goToTV}>{local.localization === localizations.EN ? 'TV Shows' : 'Сериалы'}</Button>
+            <Button color="inherit" onClick={goToPeople}>{local.localization === localizations.EN ? 'People' : 'Актёры'}</Button>
+            <IconButton
+              edge="end"
+              aria-label="localization"
+              aria-controls={localizationMenuId}
+              aria-haspopup="true"
+              onClick={handleLocalizationMenuOpen}
+              color="inherit"
+            >
+              <TranslateIcon />
+            </IconButton>
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -275,6 +337,7 @@ export const PrimarySearchAppBar = () => {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
+      {renderLocalizationMenu}
       {renderMenu}
     </div>
   );
