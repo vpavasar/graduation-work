@@ -85,14 +85,14 @@ export const PersonPage = ({match}) => {
                         <img src={profilePath} alt='person-profile' style={styles.profilePoster}/>
                     </div>
 
-                    <h3>{localization === localizations.EN ? 'Personal Info' : 'Личная информация'}</h3>
+                    <h3>{localization === localizations.EN ? 'Personal Info' : 'Персональная информация'}</h3>
                     <div>
-                        <p><strong><bdi>{localization === localizations.EN ? 'Known For' : 'Известен'}</bdi></strong> {personInfo.known_for_department}</p>
-                        <p><strong><bdi>{localization === localizations.EN ? 'Known Credits' : 'Фильмов/сериалов с актером'}</bdi></strong> 138</p>
+                        <p><strong><bdi>{localization === localizations.EN ? 'Known For' : 'Известность зазвестен'}</bdi></strong> {personInfo.known_for_department}</p>
+                        <p><strong><bdi>{localization === localizations.EN ? 'Known Credits' : 'Известно авторство'}</bdi></strong> 138</p>
                         <p><strong><bdi>{localization === localizations.EN ? 'Gender' : 'Пол'}</bdi></strong> {genderToString(personInfo.gender)}</p>
                         <p><strong><bdi>{localization === localizations.EN ? 'Birthday' : 'День рождения'}</bdi></strong>   {personInfo.birthday} ({getCurrentAge(new Date(personInfo.birthday))} years old)</p>
                         <p><strong><bdi>{localization === localizations.EN ? 'Place of Birth' : 'Место рождения'}</bdi></strong> {personInfo.place_of_birth}</p>
-                        <p><strong><bdi>{localization === localizations.EN ? 'Also Known As' : 'Также известен как'}</bdi></strong></p>
+                        <p><strong><bdi>{localization === localizations.EN ? 'Also Known As' : 'Также известность как'}</bdi></strong></p>
                         <ul style={{margin: '0', padding: '0'}}>
                             {
                                 getListNames(personInfo.also_known_as)

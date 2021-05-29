@@ -130,7 +130,7 @@ export const MoviePage = ({match}) => {
             <Container className='description-components-wrapper'>
                 <div className='cast'>
                     <div className='cast-title'>
-                        <h3>{localization === localizations.EN ? 'Top Billed Cast' : 'Самые популярные актеры'}</h3>
+                        <h3>{localization === localizations.EN ? 'Top Billed Cast' : 'В главных ролях'}</h3>
                     </div>
                     <div className='cards-wrapper'>
                         {cast.map(character => {
@@ -141,7 +141,7 @@ export const MoviePage = ({match}) => {
 
                 <div className='videos'>
                     <div className='videos-title'>
-                        <h3>{localization === localizations.EN ? 'Videos' : 'Видео'}</h3>
+                        <h3>{localization === localizations.EN ? 'Videos' : 'Видеоролики'}</h3>
                     </div>
                     <div className='videos-wrapper'>
                         {videos.map((trailer, index) => {
