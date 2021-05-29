@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback, useContext} from 'react';
 
-import {API_KEY, API_PEROSN_URL} from '../config.json';
+import {API_KEY, API_PEROSN_URL, API_EN_POSTFIX, API_RU_POSTFIX} from '../config.json';
 import {LocalizationContext, localizations} from '../context/LocalizationContext';
 import PictureGrey from '../images/picture-grey.svg';
 
@@ -54,14 +54,15 @@ export const PersonPage = ({match}) => {
     const [loading, setLoading] = useState(true);
     const [personInfo, setPersonInfo] = useState({});
     const {localization} = useContext(LocalizationContext);
+    const language = localization === localizations.EN ? API_EN_POSTFIX : API_RU_POSTFIX;
 
     const fetchPersonInfo = useCallback(async () => {
         try {
-          const fetched = await fetch(`${API_PEROSN_URL}/${personId}?api_key=${API_KEY}&language=en-US`);
+          const fetched = await fetch(`${API_PEROSN_URL}/${personId}?api_key=${API_KEY}&language=${language}`);
           const data = await fetched.json();
           setPersonInfo(data)
         } catch (e) {}
-    }, [personId])
+    }, [personId, language])
 
     useEffect(() => {
         setLoading(true);

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useHttp} from '../hooks/http.hook';
+import {LocalizationContext, localizations} from '../context/LocalizationContext';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const SignUp = () => {
   const {request} = useHttp();
+  const {localization} = useContext(LocalizationContext);
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -66,7 +68,7 @@ export const SignUp = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+        {localization === localizations.EN ? 'Sign up' : 'Зарегистрироваться'}
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -78,7 +80,7 @@ export const SignUp = () => {
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label={localization === localizations.EN ? 'First Name' : 'Имя'}
                 autoFocus
                 onChange={changeHandler}
               />
@@ -89,7 +91,7 @@ export const SignUp = () => {
                 required
                 fullWidth
                 id="lastName"
-                label="Last Name"
+                label={localization === localizations.EN ? 'Last Name' : 'Фамилия'}
                 name="lastName"
                 autoComplete="lname"
                 onChange={changeHandler}
@@ -101,7 +103,7 @@ export const SignUp = () => {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label={localization === localizations.EN ? 'Email Address' : 'Адрес электронной почты'}
                 name="email"
                 autoComplete="email"
                 onChange={changeHandler}
@@ -113,7 +115,7 @@ export const SignUp = () => {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label={localization === localizations.EN ? 'Password' : 'Пароль'}
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -123,7 +125,7 @@ export const SignUp = () => {
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                label={localization === localizations.EN ? 'I want to receive inspiration, marketing promotions and updates via email.' : 'Я хочу получать обновления по электронной почте.'}
               />
             </Grid>
           </Grid>
@@ -136,12 +138,12 @@ export const SignUp = () => {
             onClick={registerHandler}
             //disable={loading}
           >
-            Sign Up
+            {localization === localizations.EN ? 'Sign Up' : 'Зарегистрироваться'}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/sign-in" variant="body2">
-                Already have an account? Sign in
+              {localization === localizations.EN ? 'Already have an account? Sign in' : 'Уже есть аккаунт? Войти'}
               </Link>
             </Grid>
           </Grid>

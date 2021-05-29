@@ -7,7 +7,7 @@ import {PaginationCustom} from '../components/Pagination';
 import { PersonCard } from '../components/PersonCard';
 import {useHttp} from '../hooks/http.hook';
 import {LocalizationContext, localizations} from '../context/LocalizationContext';
-import {API_KEY} from '../config.json';
+import {API_KEY, API_EN_POSTFIX, API_RU_POSTFIX} from '../config.json';
 
 export const PeoplePage = () => {
     const [page, setPage] = useState(1);
@@ -16,14 +16,15 @@ export const PeoplePage = () => {
 
     const {loading, request} = useHttp();
     const {localization} = useContext(LocalizationContext);
+    const language = localization === localizations.EN ? API_EN_POSTFIX : API_RU_POSTFIX;
     
     const fetchPeople = useCallback(async () => {
         try {
-          const fetched = await request(`https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
+          const fetched = await request(`https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}&language=${language}&page=${page}`);
           setPeopleList(fetched.results);
           setTotalPages(fetched.total_pages);
         } catch (e) {}
-      }, [page, request])
+      }, [page, language, request])
 
     useEffect(() => {
         fetchPeople();

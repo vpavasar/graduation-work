@@ -10,7 +10,7 @@ import UserScoreFilter from '../components/Filters/UserScoreFilter';
 import RuntimeFilter from '../components/Filters/RuntimeFilter';
 import {PaginationCustom} from '../components/Pagination';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import {API_KEY} from '../config.json';
+import {API_KEY, API_EN_POSTFIX, API_RU_POSTFIX} from '../config.json';
 
 export const HomePage = () => {
     const {loading, request} = useHttp();
@@ -18,13 +18,14 @@ export const HomePage = () => {
     const [page, setPage] = useState(1);
     // const [filters, setFilters] = useState({});
     const {localization} = useContext(LocalizationContext);
+    const language = localization === localizations.EN ? API_EN_POSTFIX : API_RU_POSTFIX;
 
     const fetchMovies = useCallback(async () => {
         try {
-          const fetched = await request(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
+          const fetched = await request(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=${language}&page=${page}`);
           setMovies(fetched.results)
         } catch (e) {}
-    }, [page, request])
+    }, [page, language, request])
 
     useEffect(() => {
         fetchMovies();

@@ -1,5 +1,11 @@
 import React, {useEffect, useState, useCallback, useContext} from 'react';
-import {API_KEY, BACKDROP_URL, POSTER_URL} from '../config.json';
+import {
+    API_KEY, 
+    BACKDROP_URL, 
+    POSTER_URL, 
+    API_EN_POSTFIX, 
+    API_RU_POSTFIX
+} from '../config.json';
 import {LocalizationContext, localizations} from '../context/LocalizationContext';
 
 import CharacterCard from '../components/CharacterCard';
@@ -37,38 +43,39 @@ export const MoviePage = ({match}) => {
     const [recommendations, setRecommendations] = useState([]);
     const [videos, setVideos] = useState([]);
     const {localization} = useContext(LocalizationContext);
+    const language = localization === localizations.EN ? API_EN_POSTFIX : API_RU_POSTFIX;
 
     const fetchMovie = useCallback(async () => {
         try {
-          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`);
+          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=${language}`);
           const data = await fetched.json();
           setMovie(data)
         } catch (e) {}
-    }, [movieId])
+    }, [movieId, language])
 
     const fetchCast = useCallback(async () => {
         try {
-          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`);
+          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}&language=${language}`);
           const data = await fetched.json();
           setCast(data.cast);
         } catch (e) {}
-    }, [movieId])
+    }, [movieId, language])
 
     const fetchRecommendations = useCallback(async () => {
         try {
-          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&page=1`);
+          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&language=${language}&page=1`);
           const data = await fetched.json();
           setRecommendations(data.results);
         } catch (e) {}
-    }, [movieId])
+    }, [movieId, language])
 
     const fetchVideos = useCallback(async () => {
         try {
-          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`);
+          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${language}`);
           const data = await fetched.json();
           setVideos(data.results);
         } catch (e) {}
-    }, [movieId])
+    }, [movieId, language])
 
     useEffect(() => {
         setLoading(true);

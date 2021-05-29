@@ -13,6 +13,7 @@ import Container from '@material-ui/core/Container';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {useHttp} from '../hooks/http.hook';
 import { AuthContext } from '../context/AuthContext';
+import {LocalizationContext, localizations} from '../context/LocalizationContext';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const SignIn = () => {
-  const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);  
+  const {localization} = useContext(LocalizationContext);
   const {request} = useHttp();
   const [form, setForm] = useState({
     email: '',
@@ -67,7 +69,7 @@ export const SignIn = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+        {localization === localizations.EN ? 'Sign in' : 'Войти'}
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -76,7 +78,7 @@ export const SignIn = () => {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label={localization === localizations.EN ? 'Email Address' : 'Адрес электронной почты'}
             name="email"
             autoComplete="email"
             autoFocus
@@ -88,7 +90,7 @@ export const SignIn = () => {
             required
             fullWidth
             name="password"
-            label="Password"
+            label={localization === localizations.EN ? 'Password' : 'Пароль'}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -96,7 +98,7 @@ export const SignIn = () => {
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label={localization === localizations.EN ? 'Remember me' : 'Запомнить меня'}
           />
           <Button
             //type="submit"
@@ -106,17 +108,17 @@ export const SignIn = () => {
             className={classes.submit}
             onClick={loginHandler}
           >
-            Sign In
+            {localization === localizations.EN ? 'Sign in' : 'Войти'}
           </Button>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                Forgot password?
+              {localization === localizations.EN ? 'Forgot password?' : 'Забыли пароль?'}
               </Link>
             </Grid>
             <Grid item>
               <Link href="/sign-up" variant="body2">
-                {"Don't have an account? Sign Up"}
+              {localization === localizations.EN ? 'Don\'t have an account? Sign Up' : 'Зарегистрироваться'}
               </Link>
             </Grid>
           </Grid>

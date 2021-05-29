@@ -1,5 +1,9 @@
 import React, {useState, useEffect, useCallback, useContext} from 'react'
-import {API_KEY} from '../config.json';
+import {
+    API_KEY, 
+    API_EN_POSTFIX, 
+    API_RU_POSTFIX
+} from '../config.json';
 import {useHttp} from '../hooks/http.hook';
 import {LocalizationContext, localizations} from '../context/LocalizationContext';
 
@@ -14,13 +18,14 @@ export const TVShowsPage = () => {
     const [serials, setSerials] = useState([]);
     const [page, setPage] = useState(1);
     const {localization} = useContext(LocalizationContext);
+    const language = localization === localizations.EN ? API_EN_POSTFIX : API_RU_POSTFIX;
     
     const fetchSerials = useCallback(async () => {
         try {
-          const fetched = await request(`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
+          const fetched = await request(`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=${language}&page=${page}`);
           setSerials(fetched.results);
         } catch (e) {}
-      }, [page, request])
+      }, [page, language, request])
 
     useEffect(() => {
         fetchSerials();
