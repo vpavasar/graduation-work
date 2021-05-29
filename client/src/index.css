@@ -189,3 +189,62 @@
 .videoWrapper iframe{
     border: none;
 }
+
+/* PeoplePage */
+.peoplePageContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.peoplePageTitleWrapper{
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.peoplePageConentWrapper{
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 25px;
+}
+.peoplePageCardsContainer{
+    display: grid;
+    grid-column-gap: 40px;
+    grid-row-gap: 30px;
+    grid-template-columns: repeat(5, 1fr);
+}
+.peoplePagePaginationWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    width: 100%;
+    margin-top: 25px;
+}
+
+/* PersonCard */
+.person_card_wrapper{
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 16px;
+
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px 0px;
+    box-sizing: border-box;
+    color: rgb(0, 0, 0);
+}
+.person_card_image_content{}
+.person_card_profile_image{}
+.person_card_meta{
+    padding: 10px;
+}
+.person_card_name{
+    font-size: 17.6px;
+    font-weight: 600;
+    height: auto;
+    line-height: 19.2px;
+    color: rgb(0, 0, 0);
+    text-decoration-line: none;
+    text-decoration-style: solid;
+}
