@@ -71,9 +71,26 @@ export const MoviePage = ({match}) => {
 
     const fetchVideos = useCallback(async () => {
         try {
-          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${language}`);
-          const data = await fetched.json();
-          setVideos(data.results);
+          const fetchedLocale = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${language}`);
+          const locale = await fetchedLocale.json();
+
+          const fetchedRu = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${'ru-RU'}`);
+          const ru = await fetchedRu.json();
+
+          const fetchedDe = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${'de'}`);
+          const de = await fetchedDe.json();
+
+          const fetchedEn = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${'en-US'}`);
+          const en = await fetchedEn.json();
+
+          const fetchedFr = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${'fr'}`);
+          const fr = await fetchedFr.json();
+
+          
+          const fetchedIt = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${'it'}`);
+          const it = await fetchedIt.json();
+
+          setVideos([...locale.results, ...de.results, ...ru.results, ...en.results, ...fr.results, ...it.results]);
         } catch (e) {}
     }, [movieId, language])
 
@@ -155,7 +172,7 @@ export const MoviePage = ({match}) => {
                             const url = `https://www.youtube.com/embed/${trailer.key}?controls=1`;
                             return(
                                 <div key={index} className='videoWrapper'>
-                                    <iframe width="530" height="300" src={url} title={`https://www.youtube.com/embed/${trailer.key}`}/>
+                                    <iframe seamless loading = "lazy" width="530" height="300" src={url} title={`https://www.youtube.com/embed/${trailer.key}`}/>
                                 </div>
                             )
                         })}
