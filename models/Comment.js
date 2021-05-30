@@ -7,7 +7,7 @@ const schema = new Schema({
         default: Date.now
     },
     commentObjectId: String,
-    commentObjectType: String,
+    mediaType: String,
     authorName: String,
     authorId: {
         type: Schema.Types.ObjectId,

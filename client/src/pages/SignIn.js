@@ -52,7 +52,9 @@ export const SignIn = () => {
     try {
       const data = await request('/api/auth/login', 'POST', {...form});
       auth.login(data.token, data.userId);
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const classes = useStyles();

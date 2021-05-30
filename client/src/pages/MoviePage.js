@@ -12,6 +12,8 @@ import CharacterCard from '../components/CharacterCard';
 import RecomendationMovieCard from '../components/RecomendationMovieCard';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Container from '@material-ui/core/Container';
+import { CommentForm } from '../components/CommentForm';
+import CommentCard from '../components/CommentCard';
 
 const releaseDateToString = releaseDate => {
     const date = new Date(releaseDate);
@@ -42,6 +44,7 @@ export const MoviePage = ({match}) => {
     const [cast, setCast] = useState([]);
     const [recommendations, setRecommendations] = useState([]);
     const [videos, setVideos] = useState([]);
+    const [comments, setComments] = useState([]);
     const {localization} = useContext(LocalizationContext);
     const language = localization === localizations.EN ? API_EN_POSTFIX : API_RU_POSTFIX;
 
@@ -68,6 +71,15 @@ export const MoviePage = ({match}) => {
           setRecommendations(data.results);
         } catch (e) {}
     }, [movieId, language])
+
+    const fetchComments = useCallback(async () => {
+        try {
+          const fetched = await fetch(`/api/comments/movie/${movieId}`);
+          const data = await fetched.json();
+          console.log('Comments: ', data);
+          setComments(data)
+        } catch (e) {}
+    }, [movieId])
 
     const fetchVideos = useCallback(async () => {
         try {
@@ -101,9 +113,10 @@ export const MoviePage = ({match}) => {
         fetchCast();
         fetchRecommendations();
         fetchVideos();
+        fetchComments();
         
         setLoading(false);
-    }, [movieId, setLoading, fetchMovie, fetchCast, fetchRecommendations, fetchVideos])
+    }, [movieId, setLoading, fetchMovie, fetchCast, fetchRecommendations, fetchVideos, fetchComments])
 
     if(loading){
         return <LinearProgress/>
@@ -139,7 +152,9 @@ export const MoviePage = ({match}) => {
                                 <span className='dotPoint'>.</span>
                                 <span>{runtimeToString(runtime)}</span>
                             </div>
-                            <div></div>
+                            <div className='movie-page-media-buttons'>
+
+                            </div>
                             <div>
                                 <p>{tagline}</p>
                             </div>
@@ -187,6 +202,32 @@ export const MoviePage = ({match}) => {
                         {recommendations.map(movie => {
                             return <RecomendationMovieCard key={movie.id} movie={movie}/>
                         })}
+                    </div>
+                </div>
+
+                <div className='movie-discussion-container'>
+                    <div className='movie-discussion-title'>
+                        <h3>{localization === localizations.EN ? 'Discussion' : 'Ообсуждение'}</h3>
+                    </div>
+
+                    <div className='movie-discussion-comment-form-wrapper'>
+                        <CommentForm commentObjectId={movieId} mediaType={'movie'}/>
+                    </div>
+
+                    <div className='movie-discussion-comments-container'>
+                        <div className='movie-discussion-comments-container-title'>
+                            {
+                                comments.length ?
+                                <h3>{localization === localizations.EN ? `Last ${comments.length} comments` : `Последние ${comments.length} комментария`}</h3>
+                                : <h3>{localization === localizations.EN ? `No comments yet` : `Комментариев ещё нет`}</h3>
+                            }
+                        </div>
+
+                        <div className='movie-discussion-comments-wrapper'>
+                        {
+                            comments.map(c => <CommentCard key={c._id} comment={c} loading={loading}/>)
+                        }
+                        </div>
                     </div>
                 </div>
             </Container>

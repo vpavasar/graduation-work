@@ -1,11 +1,11 @@
 import React, {useState, useContext, useEffect, useCallback} from 'react';
 import {useHistory, NavLink} from 'react-router-dom';
-
 import {AuthContext} from '../context/AuthContext';
 import {useHttp} from '../hooks/http.hook.js';
-
 import Container from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
+
+
 
 const getFullName = (user) => `${user.firstName} ${user.lastName}`;
 
@@ -30,12 +30,15 @@ export const ProfilePage = () => {
     if (loading) {
         return <LinearProgress/>;
     }
-
+    
     return (
         <Container>
             <h1>{getFullName(user)}</h1>
             <p>{user.email}</p>
             <p>userId: {userId}</p>
+            <div>
+                <img src={`/images/avatars/${user.avatarUrl}`} alt="az" />
+            </div>
             <NavLink to='/'>Home page</NavLink>
         </Container>
     )

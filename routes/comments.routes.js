@@ -7,7 +7,7 @@ router.post('/', async (req, res) => {
     const {
         text,
         commentObjectId,
-        commentObjectType,
+        mediaType,
         authorName,
         authorId
     } = req.body;
@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
         const comment = new Comment({
             text,
             commentObjectId,
-            commentObjectType,
+            mediaType,
             authorName,
             authorId
         });
@@ -75,16 +75,16 @@ router.get('/user/:userId', async (req, res) => {
     }
 })
 
-router.get('/:object/:id', async (req, res) => {
-    const {object, id} = req.params;
+router.get('/:mediaType/:id', async (req, res) => {
+    const {mediaType, id} = req.params;
     
     try {
-        const comments = await Comment.find({ commentObjectId: id, commentObjectType: object });
+        const comments = await Comment.find({ commentObjectId: id, mediaType: mediaType });
         
         res.status(200).json(comments);
     } catch (e) {
         res.status(500).json({
-            message: `Server error (GET /comments/:object/:id)`,
+            message: `Server error (GET /comments/:mediaType/:id)`,
             error: e.message
         })
     }

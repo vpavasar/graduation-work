@@ -57,7 +57,7 @@
 }
 
 .filters-container-title {
-    width: 260px;
+    width: 100%;
 }
 
 .filters-container-title h2{
@@ -188,6 +188,34 @@
 
 .videoWrapper iframe{
     border: none;
+}
+
+/* MoviePage */
+.movie-discussion-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    margin-top: 50px;
+    width: 100%;
+}
+.movie-discussion-comment-form-wrapper{}
+.movie-discussion-title{
+    padding: 10px;
+    font-weight: 600;
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+.movie-discussion-comments-wrapper{
+    /* max-width: 600px; */
+}
+
+.movie-discussion-comments-container{
+    margin-top: 20px;
+}
+
+.movie-discussion-comments-container-title{
+    margin-left: 10px;
 }
 
 /* PeoplePage */
