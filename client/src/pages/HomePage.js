@@ -42,15 +42,15 @@ export const HomePage = () => {
             </div>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px'}}>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
-                    <SortFilter/>
+                    <SortFilter language={localization} localizations={localizations}/>
                     <div className='filters-container'>
                         <div className='filters-container-title'>
-                            <h2>Filters</h2>
+                            <h2>{localization === localizations.EN ? 'Filters' : 'Фильтры'}</h2>
                         </div>
-                        <DateFilter/>
-                        <GenresFilter/>
-                        <UserScoreFilter/>
-                        <RuntimeFilter/>
+                        <DateFilter language={localization} localizations={localizations}/>
+                        <GenresFilter  language={localization} localizations={localizations}/>
+                        <UserScoreFilter  language={localization} localizations={localizations}/>
+                        <RuntimeFilter language={localization} localizations={localizations}/>
                     </div>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>

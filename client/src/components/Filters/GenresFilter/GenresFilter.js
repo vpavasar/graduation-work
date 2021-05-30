@@ -4,17 +4,17 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {useHttp} from '../../../hooks/http.hook';
 import {API_KEY} from '../../../config.json';
 
-export const GenresFilter = props => {    
+export const GenresFilter = ({language, localizations}) => {    
     const {request, loading} = useHttp();
     const [genresList, setGenresList] = useState([]);
-    const onClickGenre = () => console.log('Click genre!');
+    const onClickGenre = () => console.log('Click genre!');    
 
     const fetchGenres = useCallback(async () => {
         try {
-            const fetched = await request(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`);
+            const fetched = await request(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=${language}`);
             setGenresList(fetched.genres)
         } catch (e) {}
-    }, [request])
+    }, [request, language])
 
     useEffect(() => {
         fetchGenres();
@@ -26,7 +26,7 @@ export const GenresFilter = props => {
 
     return (
         <div className='filter-genres'>
-            <p>Genres</p>
+            <p>{language === localizations.EN ? 'Genres' : 'Жанры'}</p>
             <div className='genres'>
                 {
                     genresList.map(genre => {

@@ -26,7 +26,7 @@ const StyledSlider = withStyles({
     }
 })(Slider)
 
-export const RuntimeFilter = () => {
+export const RuntimeFilter = ({language, localizations}) => {
     const changeRunTime = () => console.log('changeRunTime');
     const [value, setValue] = React.useState([0, 400]);
     const valuetext = (time) => {
@@ -42,7 +42,7 @@ export const RuntimeFilter = () => {
     return (
         <div className='user-score-filter'>
             <Typography id="range-slider" gutterBottom>
-                Runtime
+            {language === localizations.EN ? 'Runtime' : 'Длительность'}
             </Typography>
             <StyledSlider
                 value={value}

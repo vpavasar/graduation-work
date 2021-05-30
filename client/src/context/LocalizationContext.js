@@ -1,8 +1,8 @@
 import {createContext} from 'react';
 
 export const localizations = {
-    RUS: 'rus',
-    EN: 'en'
+    RUS: 'ru-RU',
+    EN: 'en-US'
 }
 
 const noop = () => {};

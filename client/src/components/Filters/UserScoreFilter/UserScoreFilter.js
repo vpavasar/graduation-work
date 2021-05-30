@@ -26,7 +26,7 @@ const StyledSlider = withStyles({
     }
 })(Slider)
 
-export const UserScoreFilter = () => {
+export const UserScoreFilter = ({language, localizations}) => {
     const changeUserScore = () => console.log('changeUserScore');
 
     const [value, setValue] = useState([0, 10]);
@@ -41,7 +41,7 @@ export const UserScoreFilter = () => {
     return (
         <div className='user-score-filter'>
             <Typography id="range-slider" gutterBottom>
-                User Score
+            {language === localizations.EN ? 'User Score' : 'Пользовательский рейтинг'}
             </Typography>
             <StyledSlider
                 value={value}
@@ -49,7 +49,7 @@ export const UserScoreFilter = () => {
                 marks={makeMarks()}
                 step={1}
                 onChange={handleChange}
-                valueLabelDisplay="off"
+                valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
                 getAriaValueText={valuetext}
             />

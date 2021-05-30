@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
+// import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import RecentActorsIcon from '@material-ui/icons/RecentActors';
@@ -252,7 +252,7 @@ export const PrimarySearchAppBar = () => {
         >
           <TranslateIcon />
         </IconButton>
-        <p>Localization</p>
+        <p>{local.localization === localizations.EN ? 'Localization' : 'Локализация'}</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -263,7 +263,7 @@ export const PrimarySearchAppBar = () => {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>{local.localization === localizations.EN ? 'Profile' : 'Профиль'}</p>
       </MenuItem>
     </Menu>
   );
@@ -272,14 +272,14 @@ export const PrimarySearchAppBar = () => {
     <div className={classes.grow}>
       <AppBar position="static" style={{backgroundColor: 'rgba(0, 0, 0, 0.84)'}}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography onClick={goToMovies} className={classes.title} variant="h6" noWrap style={{cursor: 'pointer'}}>
             Movies Searcher
           </Typography>

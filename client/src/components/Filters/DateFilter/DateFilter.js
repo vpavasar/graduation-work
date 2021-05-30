@@ -2,6 +2,8 @@ import 'date-fns';
 import React, {useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
+import ruLocale from "date-fns/locale/ru";
+import enLocale from "date-fns/locale/en-US";
 import Typography from '@material-ui/core/Typography';
 import {
   MuiPickersUtilsProvider,
@@ -9,7 +11,22 @@ import {
 } from '@material-ui/pickers';
 import './DateFilter.css';
 
-export const DateFilter = (props) => {
+const localeMap = {
+  'en-US': enLocale,
+  'ru-RU': ruLocale,
+};
+
+const localeCancelLabelMap = {
+  'en-US': "cancel",
+  'ru-RU': "отмена",
+};
+
+const localeFormatMap = {
+  'en-US': "MM/d/yyyy",
+  'ru-RU': "dd.MM.yyyy",
+};
+
+export const DateFilter = ({language, localizations}) => {
   const [dateFrom, setDateFrom] = useState(null);
   const [dateTo, setDateTo] = useState(new Date());
 
@@ -23,30 +40,32 @@ export const DateFilter = (props) => {
 
   return (
     <div className='date-filter'>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[language]}>
             <Grid container direction="column">
-                <Typography>Release Dates</Typography>
+                <Typography>{language === localizations.EN ? 'Release Dates' : 'Дата выхода'}</Typography>
                 <KeyboardDatePicker
-                format="MM/dd/yyyy"
-                margin="normal"
-                id="date-picker-dialog1"
-                label="from"
-                value={dateFrom}
-                onChange={handleDateChangeDateFrom}
-                KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                }}
+                  format={localeFormatMap[language]}
+                  cancelLabel={localeCancelLabelMap[language]}
+                  margin="normal"
+                  id="date-picker-dialog1"
+                  label={language === localizations.EN ? 'from' : 'от'}
+                  value={dateFrom}
+                  onChange={handleDateChangeDateFrom}
+                  KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                  }}
                 />
                 <KeyboardDatePicker
-                margin="normal"
-                id="date-picker-dialog"
-                label="to"
-                format="MM/dd/yyyy"
-                value={dateTo}
-                onChange={handleDateChangeDateTo}
-                KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                }}
+                  margin="normal"
+                  id="date-picker-dialog"
+                  label={language === localizations.EN ? 'to' : 'до'}
+                  format={localeFormatMap[language]}
+                  cancelLabel={localeCancelLabelMap[language]}
+                  value={dateTo}
+                  onChange={handleDateChangeDateTo}
+                  KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                  }}
                 />
             </Grid>
         </MuiPickersUtilsProvider>
