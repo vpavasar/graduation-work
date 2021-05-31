@@ -41,14 +41,11 @@
     justify-content: space-between;
 }
 
-.comment-info_wrapper{
-
-}
+.comment-info_wrapper{}
 
 .comment-meta-info_wrapper{
     display: flex;
     flex-direction: row;
-    padding: 6px;
 }
 
 .comment-autor-name_wrapper{

@@ -167,22 +167,22 @@ export const MoviePage = ({match}) => {
                 </div>
             </div>
             <Container className='description-components-wrapper'>
-                <div className='cast'>
-                    <div className='cast-title'>
-                        <h3>{localization === localizations.EN ? 'Top Billed Cast' : 'В главных ролях'}</h3>
+                <div className='movie-page-section'>
+                    <div>
+                        <h3 className='section-title'>{localization === localizations.EN ? 'Top Billed Cast' : 'В главных ролях'}</h3>
                     </div>
-                    <div className='cards-wrapper'>
+                    <div className='cast-cards-wrapper movie-page-section-content'>
                         {cast.map(character => {
                             return <CharacterCard key={character.id} character={character}/>
                         })}
                     </div>
                 </div>
 
-                <div className='videos'>
-                    <div className='videos-title'>
-                        <h3>{localization === localizations.EN ? 'Videos' : 'Видеоролики'}</h3>
+                <div className='movie-page-section'>
+                    <div >
+                        <h3 className='section-title'>{localization === localizations.EN ? 'Videos' : 'Видеоролики'}</h3>
                     </div>
-                    <div className='videos-wrapper'>
+                    <div className='videos-wrapper movie-page-section-content'>
                         {videos.map((trailer, index) => {
                             const url = `https://www.youtube.com/embed/${trailer.key}?controls=1`;
                             return(
@@ -194,23 +194,23 @@ export const MoviePage = ({match}) => {
                     </div>
                 </div>
 
-                <div className='recommendations'>
-                    <div className='recommendations-title'>
-                        <h3>{localization === localizations.EN ? 'Recommendations' : 'Рекомендации'}</h3>
+                <div className='movie-page-section'>
+                    <div>
+                        <h3 className='section-title'>{localization === localizations.EN ? 'Recommendations' : 'Рекомендации'}</h3>
                     </div>
-                    <div className='recommendations-wrapper'>
+                    <div className='recommendations-wrapper movie-page-section-content'>
                         {recommendations.map(movie => {
                             return <RecomendationMovieCard key={movie.id} movie={movie}/>
                         })}
                     </div>
                 </div>
 
-                <div className='movie-discussion-container'>
-                    <div className='movie-discussion-title'>
-                        <h3>{localization === localizations.EN ? 'Discussion' : 'Ообсуждение'}</h3>
+                <div className='movie-page-section'>
+                    <div>
+                        <h3 className='section-title'>{localization === localizations.EN ? 'Discussion' : 'Ообсуждение'}</h3>
                     </div>
 
-                    <div className='movie-discussion-comment-form-wrapper'>
+                    <div className='movie-discussion-comment-form-wrapper movie-page-section-content'>
                         <CommentForm commentObjectId={movieId} mediaType={'movie'}/>
                     </div>
 
