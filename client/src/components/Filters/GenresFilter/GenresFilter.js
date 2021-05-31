@@ -12,7 +12,7 @@ export const GenresFilter = ({language, localizations}) => {
     const fetchGenres = useCallback(async () => {
         try {
             const fetched = await request(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=${language}`);
-            setGenresList(fetched.genres)
+            setGenresList(fetched.genres.sort((a,b) => a.name < b.name ? -1 : 1))
         } catch (e) {}
     }, [request, language])
 
