@@ -5,6 +5,7 @@ import {HomePage} from './pages/HomePage';
 import {ProfilePage} from './pages/ProfilePage';
 import {MoviePage} from './pages/MoviePage';
 import {TVShowsPage} from './pages/TVShowsPage';
+import {TvPage} from './pages/TvPage';
 import {PeoplePage} from './pages/PeoplePage';
 import {SearchMoviesPage} from './pages/SearchMoviesPage';
 import {PersonPage} from './pages/PersonPage';
@@ -17,6 +18,7 @@ export const useRoutes = isAuthenticated => {
             <Switch>
                 <Route path='/' exact component={HomePage} />
                 <Route path='/movie/:id' component={MoviePage} />
+                <Route path='/tv/:id' component={TvPage} />
                 <Route path='/tv' component={TVShowsPage} />
                 <Route path='/profile/:id' component={ProfilePage} />
                 <Route path='/search/:request' component={SearchMoviesPage} />

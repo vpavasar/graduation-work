@@ -7,13 +7,13 @@ import {
     API_RU_POSTFIX
 } from '../config.json';
 import {LocalizationContext, localizations} from '../context/LocalizationContext';
-
 import CharacterCard from '../components/CharacterCard';
 import RecomendationMovieCard from '../components/RecomendationMovieCard';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Container from '@material-ui/core/Container';
 import { CommentForm } from '../components/CommentForm';
 import CommentCard from '../components/CommentCard';
+
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Container from '@material-ui/core/Container';
 
 const releaseDateToString = releaseDate => {
     const date = new Date(releaseDate);
@@ -29,6 +29,7 @@ const genresListToString = (genres) => {
 const runtimeToString = runtime => {
     const hours = Math.floor(runtime/60);
     const minutes = Math.round((runtime/60 - Math.floor(runtime/60)) * 60);
+    if (hours === 0) return `${minutes}m`;
     return `${hours}h ${minutes}m`;
 }
 
@@ -37,86 +38,85 @@ const releaseDateFullYear = (releaseDate = '2021-03-24') => {
     return date.getFullYear();
 }
 
-export const MoviePage = ({match}) => {
-    const movieId = match.params.id;
-    const [loading, setLoading] = useState(true);
-    const [movie, setMovie] = useState({});
-    const [cast, setCast] = useState([]);
-    const [recommendations, setRecommendations] = useState([]);
-    const [videos, setVideos] = useState([]);
-    const [comments, setComments] = useState([]);
+export const TvPage = ({match}) => {
     const {localization} = useContext(LocalizationContext);
     const language = localization === localizations.EN ? API_EN_POSTFIX : API_RU_POSTFIX;
+    const [loading, setLoading] = useState(true);
+    const tvId = match.params.id;
+    const [tv, setTV] = useState({});
+    const [cast, setCast] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const [recommendations, setRecommendations] = useState([]);
+    const [comments, setComments] = useState([]);
 
-    const fetchMovie = useCallback(async () => {
+    const fetchTV = useCallback(async () => {
         try {
-          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=${language}`);
+          const fetched = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${API_KEY}&language=${language}`);
           const data = await fetched.json();
-          setMovie(data)
+          setTV(data)
         } catch (e) {}
-    }, [movieId, language])
+    }, [tvId, language])
 
     const fetchCast = useCallback(async () => {
         try {
-          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}&language=${language}`);
+          const fetched = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/credits?api_key=${API_KEY}&language=${language}`);
           const data = await fetched.json();
-          setCast(data.cast);
+          setCast([...data.cast, ...data.crew]);
         } catch (e) {}
-    }, [movieId, language])
-
-    const fetchRecommendations = useCallback(async () => {
-        try {
-          const fetched = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&language=${language}&page=1`);
-          const data = await fetched.json();
-          setRecommendations(data.results);
-        } catch (e) {}
-    }, [movieId, language])
-
-    const fetchComments = useCallback(async () => {
-        try {
-          const fetched = await fetch(`/api/comments/movie/${movieId}`);
-          const data = await fetched.json();
-          console.log('Comments: ', data);
-          setComments(data)
-        } catch (e) {}
-    }, [movieId])
+    }, [tvId, language])
 
     const fetchVideos = useCallback(async () => {
         try {
-          const fetchedLocale = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${language}`);
+          const fetchedLocale = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/videos?api_key=${API_KEY}&language=${language}`);
           const locale = await fetchedLocale.json();
 
-          const fetchedRu = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${'ru-RU'}`);
+          const fetchedRu = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/videos?api_key=${API_KEY}&language=${'ru-RU'}`);
           const ru = await fetchedRu.json();
 
-          const fetchedDe = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${'de'}`);
+          const fetchedDe = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/videos?api_key=${API_KEY}&language=${'de'}`);
           const de = await fetchedDe.json();
 
-          const fetchedEn = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${'en-US'}`);
+          const fetchedEn = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/videos?api_key=${API_KEY}&language=${'en-US'}`);
           const en = await fetchedEn.json();
 
-          const fetchedFr = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${'fr'}`);
+          const fetchedFr = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/videos?api_key=${API_KEY}&language=${'fr'}`);
           const fr = await fetchedFr.json();
-
           
-          const fetchedIt = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=${'it'}`);
+          const fetchedIt = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/videos?api_key=${API_KEY}&language=${'it'}`);
           const it = await fetchedIt.json();
 
           setVideos([...locale.results, ...de.results, ...ru.results, ...en.results, ...fr.results, ...it.results]);
         } catch (e) {}
-    }, [movieId, language])
+    }, [tvId, language])
+
+    const fetchRecommendations = useCallback(async () => {
+        try {
+          const fetched = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/recommendations?api_key=${API_KEY}&language=${language}&page=1`);
+          const data = await fetched.json();
+          setRecommendations(data.results);
+        } catch (e) {}
+    }, [tvId, language])
+
+    const fetchComments = useCallback(async () => {
+        try {
+          const fetched = await fetch(`/api/comments/tv/${tvId}`);
+          const data = await fetched.json();
+          console.log('Comments: ', data);
+          setComments(data)
+        } catch (e) {}
+    }, [tvId])
 
     useEffect(() => {
         setLoading(true);
 
-        fetchMovie();
+        fetchTV();
         fetchCast();
-        fetchRecommendations();
         fetchVideos();
-        fetchComments();
+        fetchRecommendations();
+        fetchComments()
         
         setLoading(false);
-    }, [movieId, setLoading, fetchMovie, fetchCast, fetchRecommendations, fetchVideos, fetchComments])
+    }, [tvId, setLoading, fetchTV, fetchCast, fetchVideos, fetchRecommendations, fetchComments])
 
     if(loading){
         return <LinearProgress/>
@@ -125,13 +125,13 @@ export const MoviePage = ({match}) => {
     const {
         poster_path = '',
         backdrop_path = '',
-        release_date = '2111-03-11',
+        first_air_date = '2111-03-11',
         genres = [],
-        runtime = 0,
+        episode_run_time = 0,
         tagline = '',
         overview = '',
-        title = '',
-    } = movie;
+        name = '',
+    } = tv;
 
     return (
         <div>
@@ -143,14 +143,14 @@ export const MoviePage = ({match}) => {
                         </div>
                         <div className='moviePageMainInfoWrapper'>
                             <div>
-                                <h2>{title} <span>({releaseDateFullYear(release_date)})</span></h2>
+                                <h2>{name} <span>({releaseDateFullYear(first_air_date)})</span></h2>
                             </div>
                             <div>
-                                <span>{releaseDateToString(release_date)}</span>
+                                <span>{releaseDateToString(first_air_date)}</span>
                                 <span className='dotPoint'>.</span>
                                 <span>{genresListToString(genres)}</span>
                                 <span className='dotPoint'>.</span>
-                                <span>{runtimeToString(runtime)}</span>
+                                <span>{runtimeToString(episode_run_time)}</span>
                             </div>
                             <div className='movie-page-media-buttons'>
 
@@ -169,7 +169,7 @@ export const MoviePage = ({match}) => {
             <Container className='description-components-wrapper'>
                 <div className='cast'>
                     <div className='cast-title'>
-                        <h3>{localization === localizations.EN ? 'Top Billed Cast' : 'В главных ролях'}</h3>
+                        <h3>{localization === localizations.EN ? 'Series Cast' : 'Актёрский состав сериала'}</h3>
                     </div>
                     <div className='cards-wrapper'>
                         {cast.map(character => {
@@ -199,8 +199,14 @@ export const MoviePage = ({match}) => {
                         <h3>{localization === localizations.EN ? 'Recommendations' : 'Рекомендации'}</h3>
                     </div>
                     <div className='recommendations-wrapper'>
-                        {recommendations.map(movie => {
-                            return <RecomendationMovieCard key={movie.id} movie={movie}/>
+                        {recommendations.map(tv => {
+                            const data = {
+                                backdrop_path: tv.backdrop_path,
+                                title: tv.name,
+                                vote_average: tv.vote_average,
+                                id: tv.id
+                            }
+                            return <RecomendationMovieCard key={tv.id} movie={data} root_path='/tv'/>
                         })}
                     </div>
                 </div>
@@ -211,7 +217,7 @@ export const MoviePage = ({match}) => {
                     </div>
 
                     <div className='movie-discussion-comment-form-wrapper'>
-                        <CommentForm commentObjectId={movieId} mediaType={'movie'}/>
+                        <CommentForm commentObjectId={tvId} mediaType={'tv'}/>
                     </div>
 
                     <div className='movie-discussion-comments-container'>

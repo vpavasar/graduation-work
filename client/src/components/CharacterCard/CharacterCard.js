@@ -1,7 +1,7 @@
 import React from 'react';
 import './CharacterCard.css';
 
-import {useHistory} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 
 import maleProfilePath from '../../images/user-grey.svg';
 import femaleProfilePath from '../../images/user-female.svg';
@@ -23,11 +23,22 @@ export const CharacterCard = ({character}) => {
 
     return (
         <div className='character-card'>
-            <div onClick={onClickHandler}>
-                <img src={profilePath}  className='character-card-img' alt='character-profile'/>
+            <div>
+                <NavLink to={`/person/${character.id}`}>
+                    <img src={profilePath}  className='character-card-img' alt='character-profile'/>
+                </NavLink>                
             </div>
-            <p className='character-card-title' onClick={onClickHandler}>{character.name}</p>
-            <p className='character-card-date'>{character.character}</p>
+            <div className='card-info-wrapper'>
+                {/* <NavLink to={`/person/${character.id}`} className='character-card-title'>
+                <p className='character-card-title' onClick={onClickHandler}>{character.name}</p>
+                </NavLink> */}
+                <div>
+                    <p className='character-card-title' onClick={onClickHandler}>{character.name}</p>
+                </div>
+                <div>
+                    <p className='character-card-date'>{character.character}</p>
+                </div>
+            </div>
         </div>
     )
 }
