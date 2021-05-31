@@ -261,6 +261,19 @@ iframe{
 .movie-page-section-content{
     margin-top: 20px;
 }
+.movie-page-meta-info{
+    margin-bottom: 20px;
+}
+.movie-page-media-buttons{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.movie-page-media-buttonn-wrapper{
+    margin-right: 20px;    
+}
 
 .list-action-button{
     display: flex;

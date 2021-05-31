@@ -1,19 +1,19 @@
 import React, {useState, useContext, useCallback, useEffect} from 'react';
-import BookmarkedIcon from '@material-ui/icons/Bookmark';
-import NotBookmarkedIcon from '@material-ui/icons/BookmarkBorder';
+import DoneIcon from '@material-ui/icons/Visibility';
+import NotDoneIcon from '@material-ui/icons/VisibilityOffOutlined';
 import {useHttp} from '../../hooks/http.hook';
 import {AuthContext} from '../../context/AuthContext';
 
-export const Bookmark = ({itemId, mediaType}) => {
+export const Visibility = ({itemId, mediaType}) => {
     const {userId} = useContext(AuthContext);
     const {request} = useHttp();
-    const [isBookmarked, setIsBookmarked] = useState(false);
+    const [isDone, setIsDone] = useState(false);
 
     const addToList = async () => {
         try {
             const body = {
                 userId,
-                listName: 'wish',
+                listName: 'watched',
                 itemId,
                 mediaType
             }
@@ -25,7 +25,7 @@ export const Bookmark = ({itemId, mediaType}) => {
         try {
             const body = {
                 userId,
-                listName: 'wish',
+                listName: 'watched',
                 itemId,
                 mediaType
             }
@@ -34,8 +34,8 @@ export const Bookmark = ({itemId, mediaType}) => {
     }
 
     const onClickHundler = () => {
-        setIsBookmarked(!isBookmarked);
-        if(isBookmarked) {
+        setIsDone(!isDone);
+        if(isDone) {
             return removeFromList();
         }
 
@@ -44,11 +44,11 @@ export const Bookmark = ({itemId, mediaType}) => {
 
     const fetchUserInfo = useCallback(async () => {
         try {
-          const fetched = await request(`/api/lists/wish/${userId}`);
+          const fetched = await request(`/api/lists/watched/${userId}`);
           const condition = fetched.some(item => {
               return item.id === itemId && item.mediaType === mediaType
             });
-            setIsBookmarked(condition);
+            setIsDone(condition);
         } catch (e) {}
       }, [userId, request])
 
@@ -59,7 +59,7 @@ export const Bookmark = ({itemId, mediaType}) => {
     return (
         <div className='list-action-button' onClick={onClickHundler}>
             {
-                isBookmarked ? <BookmarkedIcon fontSize="small"/> : <NotBookmarkedIcon fontSize="small"/>
+                isDone ? <DoneIcon fontSize="small"/> : <NotDoneIcon fontSize="small"/>
             }
         </div>
     )

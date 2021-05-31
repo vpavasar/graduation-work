@@ -33,17 +33,14 @@ router.get('/:listName/:userId', async (req, res) => {
 })
 
 router.post('/item', async (req, res) => {
-    const {userId, itemId, listName} = req.body;
+    const {userId, itemId, mediaType, listName} = req.body;
 
     try{
         const user = await User.findById(userId);
-        const list = [...user.lists[listName]];
+        user.lists[listName].push({id: itemId, mediaType});
+        await user.save();
 
-        list.push(itemId);
-        user.lists[listName] = list;
-        user.save();
-
-        res.status(201).json(list);
+        res.status(201).json(user.lists[listName]);
     } catch (e) {
         res.status(500).json({
             message: `Server error (POST /listls)`,
@@ -53,15 +50,15 @@ router.post('/item', async (req, res) => {
 })
 
 router.delete('/item', async (req, res) => {
-    const {userId, itemId, listName} = req.body;
+    const {userId, itemId, mediaType, listName} = req.body;
     
     try{
         const user = await User.findById(userId);
         let list = [...user.lists[listName]];
 
-        list = list.filter(id => id !== itemId);
+        list = list.filter(({id, type}) => id !== itemId && type !== mediaType);
         user.lists[listName] = list;
-        user.save();
+        await user.save();
 
         res.status(200).json(list);
     } catch (e) {

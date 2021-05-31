@@ -16,6 +16,9 @@ import { CommentForm } from '../components/CommentForm';
 import CommentCard from '../components/CommentCard';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { TrailerModalBox } from '../components/TrailerModalBox';
+import { Bookmark } from '../components/buttons/Bookmark';
+import { Favorite } from '../components/buttons/Favorite';
+import { Visibility } from '../components/buttons/Visibility';
 
 const releaseDateToString = releaseDate => {
     const date = new Date(releaseDate);
@@ -148,7 +151,7 @@ export const MoviePage = ({match}) => {
                             <div>
                                 <h2>{title} <span>({releaseDateFullYear(release_date)})</span></h2>
                             </div>
-                            <div>
+                            <div className='movie-page-meta-info'>
                                 <span>{releaseDateToString(release_date)}</span>
                                 <span className='dotPoint'>.</span>
                                 <span>{genresListToString(genres)}</span>
@@ -156,6 +159,15 @@ export const MoviePage = ({match}) => {
                                 <span>{runtimeToString(runtime)}</span>
                             </div>
                             <div className='movie-page-media-buttons'>
+                                <div className='movie-page-media-buttonn-wrapper'>
+                                    <Visibility itemId={+movieId} mediaType='movie'/>
+                                </div>
+                                <div className='movie-page-media-buttonn-wrapper'>
+                                    <Favorite itemId={+movieId} mediaType='movie'/>
+                                </div>
+                                <div className='movie-page-media-buttonn-wrapper'>
+                                    <Bookmark itemId={+movieId} mediaType='movie'/>
+                                </div> 
                                 <div onClick={() => setIsOperTrailer(true)} className='play-trailer'>
                                     <PlayArrowIcon/>
                                     <h4>{localization === localizations.EN ? ' Play Trailer' : 'Воспроизвести трейлер'}</h4>

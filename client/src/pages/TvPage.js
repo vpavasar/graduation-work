@@ -12,6 +12,9 @@ import RecomendationMovieCard from '../components/RecomendationMovieCard';
 import { CommentForm } from '../components/CommentForm';
 import CommentCard from '../components/CommentCard';
 import { TrailerModalBox } from '../components/TrailerModalBox';
+import { Bookmark } from '../components/buttons/Bookmark';
+import { Favorite } from '../components/buttons/Favorite';
+import { Visibility } from '../components/buttons/Visibility';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Container from '@material-ui/core/Container';
@@ -148,7 +151,7 @@ export const TvPage = ({match}) => {
                             <div>
                                 <h2>{name} <span>({releaseDateFullYear(first_air_date)})</span></h2>
                             </div>
-                            <div>
+                            <div className='movie-page-meta-info'>
                                 <span>{releaseDateToString(first_air_date)}</span>
                                 <span className='dotPoint'>.</span>
                                 <span>{genresListToString(genres)}</span>
@@ -156,6 +159,15 @@ export const TvPage = ({match}) => {
                                 <span>{runtimeToString(episode_run_time)}</span>
                             </div>
                             <div className='movie-page-media-buttons'>
+                                <div className='movie-page-media-buttonn-wrapper'>
+                                    <Visibility itemId={+tvId} mediaType='tv'/>
+                                </div>
+                                <div className='movie-page-media-buttonn-wrapper'>
+                                    <Favorite itemId={+tvId} mediaType='tv'/>
+                                </div>
+                                <div className='movie-page-media-buttonn-wrapper'>
+                                    <Bookmark itemId={+tvId} mediaType='tv'/>
+                                </div> 
                                 <div onClick={() => setIsOperTrailer(true)} className='play-trailer'>
                                     <PlayArrowIcon/>
                                     <h4>{localization === localizations.EN ? ' Play Trailer' : 'Воспроизвести трейлер'}</h4>
