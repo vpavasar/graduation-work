@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import './CommentCard.css';
 import {LocalizationContext, localizations} from '../../context/LocalizationContext';
-import {ButtonLike} from '../ButtonLike';
-import {ButtonDislike} from '../ButtonDislike';
+import {ButtonLike} from '../buttons/ButtonLike';
+import {ButtonDislike} from '../buttons/ButtonDislike';
 
 export const CommentCard = props => {
     const {

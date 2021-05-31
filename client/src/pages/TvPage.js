@@ -11,9 +11,11 @@ import CharacterCard from '../components/CharacterCard';
 import RecomendationMovieCard from '../components/RecomendationMovieCard';
 import { CommentForm } from '../components/CommentForm';
 import CommentCard from '../components/CommentCard';
+import { TrailerModalBox } from '../components/TrailerModalBox';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Container from '@material-ui/core/Container';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 const releaseDateToString = releaseDate => {
     const date = new Date(releaseDate);
@@ -48,6 +50,7 @@ export const TvPage = ({match}) => {
     const [videos, setVideos] = useState([]);
     const [recommendations, setRecommendations] = useState([]);
     const [comments, setComments] = useState([]);
+    const [isOpenTrailer, setIsOperTrailer] = useState(false);
 
     const fetchTV = useCallback(async () => {
         try {
@@ -153,7 +156,10 @@ export const TvPage = ({match}) => {
                                 <span>{runtimeToString(episode_run_time)}</span>
                             </div>
                             <div className='movie-page-media-buttons'>
-
+                                <div onClick={() => setIsOperTrailer(true)} className='play-trailer'>
+                                    <PlayArrowIcon/>
+                                    <h4>{localization === localizations.EN ? ' Play Trailer' : 'Воспроизвести трейлер'}</h4>
+                                </div>
                             </div>
                             <div>
                                 <p>{tagline}</p>
@@ -237,6 +243,7 @@ export const TvPage = ({match}) => {
                     </div>
                 </div>
             </Container>
+            {isOpenTrailer ? <TrailerModalBox trailerId={videos[0].key} onCloseHundler={() => setIsOperTrailer(false)}/> : null}
         </div>
     )
 }

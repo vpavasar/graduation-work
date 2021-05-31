@@ -261,3 +261,88 @@ iframe{
 .movie-page-section-content{
     margin-top: 20px;
 }
+
+.list-action-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    background-color: rgb(3, 37, 65);
+}
+.list-action-button {
+    cursor: pointer;
+}
+
+/* TrailerModalBox */
+.trailer-box-wrapper:hover {
+    cursor:default;
+}
+.trailer-box-wrapper {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-color: rgb(0, 0, 0);
+    z-index: 1999;
+}
+/* .main-trailer-iframe{
+    width: 1468px;
+    height: 826px;
+} */
+
+.trailer-box {
+    position:absolute;
+    margin-top: 50px;
+    /* width: 1468px;
+    height: 826px; */
+    background-color: rgba(0, 0, 0, 0.849);
+}
+
+.trailer-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 20px;
+}
+
+.close-icon-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
+    border-radius: 3px;
+}
+
+.close-icon-container:hover{
+    background-color: rgb(29, 29, 29);
+    cursor: pointer;
+}
+.close-trailer {
+}
+
+.trailer-video {
+
+}
+
+.play-trailer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-trailer h4{
+    margin-left: 5px;
+}
+
+.play-trailer:hover{
+    cursor: pointer;
+}
+/* X TrailerModalBox X */

@@ -14,6 +14,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Container from '@material-ui/core/Container';
 import { CommentForm } from '../components/CommentForm';
 import CommentCard from '../components/CommentCard';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import { TrailerModalBox } from '../components/TrailerModalBox';
 
 const releaseDateToString = releaseDate => {
     const date = new Date(releaseDate);
@@ -45,6 +47,7 @@ export const MoviePage = ({match}) => {
     const [recommendations, setRecommendations] = useState([]);
     const [videos, setVideos] = useState([]);
     const [comments, setComments] = useState([]);
+    const [isOpenTrailer, setIsOperTrailer] = useState(false);
     const {localization} = useContext(LocalizationContext);
     const language = localization === localizations.EN ? API_EN_POSTFIX : API_RU_POSTFIX;
 
@@ -153,7 +156,10 @@ export const MoviePage = ({match}) => {
                                 <span>{runtimeToString(runtime)}</span>
                             </div>
                             <div className='movie-page-media-buttons'>
-
+                                <div onClick={() => setIsOperTrailer(true)} className='play-trailer'>
+                                    <PlayArrowIcon/>
+                                    <h4>{localization === localizations.EN ? ' Play Trailer' : 'Воспроизвести трейлер'}</h4>
+                                </div>
                             </div>
                             <div>
                                 <p>{tagline}</p>
@@ -231,6 +237,7 @@ export const MoviePage = ({match}) => {
                     </div>
                 </div>
             </Container>
+            {isOpenTrailer ? <TrailerModalBox trailerId={videos[0].key} onCloseHundler={() => setIsOperTrailer(false)}/> : null}
         </div>
     )
 }
