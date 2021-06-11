@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import './CommentCard.css';
+import {AuthContext} from '../../context/AuthContext';
 import {LocalizationContext, localizations} from '../../context/LocalizationContext';
 import {ButtonLike} from '../buttons/ButtonLike';
 import {ButtonDislike} from '../buttons/ButtonDislike';
@@ -13,7 +14,8 @@ export const CommentCard = props => {
         authorId,
         comments,
         reactions
-    } = props.comment;    
+    } = props.comment;
+    const {userId} = useContext(AuthContext);
     const {localization} = useContext(LocalizationContext);
     const local = localizations[localization];
     const predlog = localization === localizations.EN ? 'in' : 'в';
@@ -35,6 +37,10 @@ export const CommentCard = props => {
 
                             <div>
                                 {`${new Date(createdOn).toLocaleDateString(local)} ${predlog} ${new Date(createdOn).getHours()}:${new Date(createdOn).getMinutes()}`}
+                            </div>
+
+                            <div style={{marginLeft: '20px', color: 'pink', cursor: 'pointer'}}>
+                                {userId === authorId ? <strong>Удалить комментарий</strong> : null}
                             </div>
                         </div>
 

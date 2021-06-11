@@ -359,3 +359,34 @@ iframe{
     cursor: pointer;
 }
 /* X TrailerModalBox X */
+
+
+/* PROFILE */
+.profile-header{
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+}
+
+.profile-avatar_container{
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-avatar{
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+}
+
+.randomClassName{
+    display: flex;
+    flex-direction: row;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* @media (max-width: 870px){
+    .randomClassName{
+    }
+} */
