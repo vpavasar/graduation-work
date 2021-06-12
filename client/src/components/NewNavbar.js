@@ -151,6 +151,9 @@ export const PrimarySearchAppBar = () => {
   const goToPeople = () => {
       history.push('/person');
   };
+  const goToAdmin = () => {
+    history.push('/admin/users');
+  }
 
   const onSubmit = event => {
     const request = event.target.value.trim();
@@ -299,6 +302,7 @@ export const PrimarySearchAppBar = () => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <Button color="inherit" onClick={goToAdmin}>{local.localization === localizations.EN ? 'Administration' : 'Администрирование'}</Button>
             <Button color="inherit" onClick={goToMovies}>{local.localization === localizations.EN ? 'Movies' : 'Фильмы'}</Button>
             <Button color="inherit" onClick={goToTV}>{local.localization === localizations.EN ? 'TV Shows' : 'Сериалы'}</Button>
             <Button color="inherit" onClick={goToPeople}>{local.localization === localizations.EN ? 'People' : 'Актёры'}</Button>

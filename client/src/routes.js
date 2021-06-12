@@ -11,6 +11,7 @@ import {SearchMoviesPage} from './pages/SearchMoviesPage';
 import {PersonPage} from './pages/PersonPage';
 import {SignIn} from './pages/SignIn';
 import {SignUp} from './pages/SignUp';
+import { AdminUserPage } from './pages/AdminUsersPage';
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {
@@ -24,6 +25,7 @@ export const useRoutes = isAuthenticated => {
                 <Route path='/search/:request' component={SearchMoviesPage} />
                 <Route path='/person/:id' component={PersonPage} />
                 <Route path='/person' component={PeoplePage} />
+                <Route path='/admin/users' component={AdminUserPage} />
                 <Redirect to='/'/>
             </Switch>
         )
