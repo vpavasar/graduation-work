@@ -11,7 +11,7 @@ export const MovieListCard = ({id, mediaType}) => {
     
     const fetchMovie = useCallback(async () => {
         try {
-          const fetched = await fetch(`https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${API_KEY}&language=${localizations[localization]}`);
+          const fetched = await fetch(`https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${API_KEY}&language=ru-RU`);
           const data = await fetched.json();
           setMovie(data)
         } catch (e) {}
