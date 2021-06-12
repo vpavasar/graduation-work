@@ -143,11 +143,11 @@ router.post('/reaction', async (req, res) => {
 
         comment.reactions.users.push(userReaction);
 
-        if (isPositive) {
-            comment.reactions.likesCount = comment.reactions.likesCount + 1;
-        } else {
-            comment.reactions.dislikesCount = comment.reactions.dislikesCount + 1;
-        }
+        // if (isPositive) {
+        //     comment.reactions.likesCount = comment.reactions.likesCount + 1;
+        // } else {
+        //     comment.reactions.dislikesCount = comment.reactions.dislikesCount + 1;
+        // }
         
         await comment.save();
 
@@ -169,15 +169,15 @@ router.delete('/reaction', async (req, res) => {
 
     try {
         const comment = await Comment.findById(commentId);
-        const users = comment.reactions.users.filter(user => user._id.toString() !== userId);
+        const users = comment.reactions.users.filter(user => user.userId.toString() !== userId);
         
         comment.reactions.users = [...users];
 
-        if (isPositive) {
-            comment.reactions.likesCount = comment.reactions.likesCount - 1;
-        } else {
-            comment.reactions.dislikesCount = comment.reactions.dislikesCount - 1;
-        }
+        // if (isPositive) {
+        //     comment.reactions.likesCount = comment.reactions.likesCount - 1;
+        // } else {
+        //     comment.reactions.dislikesCount = comment.reactions.dislikesCount - 1;
+        // }
         
         await comment.save();
 
