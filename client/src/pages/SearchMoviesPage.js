@@ -30,6 +30,7 @@ export const SearchMoviesPage = ({match}) => {
 
     return (
         <Container style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <div style={{width: '100%', display: 'flex', flexDirection: 'row',justifyContent: 'center'}}><div><h2 className='pageTitle'>{localization === localizations.EN ? `Search results for the query: ${requestValue}` : `Результаты поиска по запросу: ${requestValue}`}</h2></div></div>
             {!movies.length ? 'По вашему запросу ничего не найдено...' : <div style={{marginTop: '30px', display: 'grid', gridColumnGap: '20px', gridRowGap: '10px', gridTemplateColumns: 'repeat(5, 1fr)'}}>
                 {movies.map((movie) => <MovieCard key={movie.id} movie={movie}/>)}
             </div>}
