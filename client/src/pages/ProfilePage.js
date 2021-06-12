@@ -48,6 +48,11 @@ export const ProfilePage = () => {
     if (loading) {
         return <LinearProgress/>;
     }
+
+    const onDeleteComment = id => {
+        const filteredComments = comments.filter(c => c._id !== id);
+        setComments(filteredComments);
+    }
     
     console.log(`/api/comments/user/${profileId}`, comments);
 
@@ -114,7 +119,7 @@ export const ProfilePage = () => {
                 <div style={{display: 'flex', flexDirection: 'column'}} className='movie-page-section-content'>
                     {
                         comments.length ?
-                        comments.map(c => <CommentCard key={c._id} comment={c} loading={loading}/>)
+                        comments.map(c => <CommentCard key={c._id} comment={c} loading={loading} onDeleteHandler={onDeleteComment}/>)
                         : <p>Комментарии отсутствуют</p>
                     }
                 </div>

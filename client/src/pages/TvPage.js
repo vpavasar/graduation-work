@@ -143,6 +143,11 @@ export const TvPage = ({match}) => {
         setComments([...comments, comment]);
     }
 
+    const onDeleteComment = id => {
+        const filteredComments = comments.filter(c => c._id !== id);
+        setComments(filteredComments);
+    }
+
     return (
         <div>
             <div className="backdropWrapper" style={{backgroundImage: `url("${BACKDROP_URL}${backdrop_path}")`}}>
@@ -253,7 +258,7 @@ export const TvPage = ({match}) => {
 
                         <div className='movie-discussion-comments-wrapper'>
                         {
-                            comments.map(c => <CommentCard key={c._id} comment={c} loading={loading}/>)
+                            comments.map(c => <CommentCard key={c._id} comment={c} loading={loading} onDeleteHandler={onDeleteComment}/>)
                         }
                         </div>
                     </div>
