@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export const CommentForm = ({commentObjectId, mediaType}) => {
+export const CommentForm = ({commentObjectId, mediaType, onSubmitHundler}) => {
     const classes = useStyles();
     const [text, setText] = React.useState('');
 
     const {localization} = useContext(LocalizationContext);
-    const {userId} = useContext(AuthContext);
+    const {userId, userFullName} = useContext(AuthContext);
     const {request} = useHttp();
   
     const handleChange = (event) => {
@@ -32,21 +32,15 @@ export const CommentForm = ({commentObjectId, mediaType}) => {
     
     const submitHandler = async () => {
       try {
-        // {
-        //   "text": "test comment222",
-        //   "commentObjectId": "503736",
-        //   "mediaType": "movie",
-        //   "authorName": "Vadim Pavasar",
-        //   "authorId": "60a3d9b4ef20c329e4139646"
-        // }
+        setText('');
         const response = await request('/api/comments', 'POST', {
           text,
           commentObjectId,
           mediaType,
           authorId: userId,
-          authorName: "Vadim Pavasar"
+          authorName: userFullName
         });
-        console.log('Comment res: ', response);
+        onSubmitHundler(response.comment)
       } catch (e) {
         console.log(e);
       }

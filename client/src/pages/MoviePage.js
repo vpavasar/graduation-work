@@ -139,6 +139,10 @@ export const MoviePage = ({match}) => {
         title = '',
     } = movie;
 
+    const onSubmitComment = comment => {
+        setComments([...comments, comment]);
+    }
+
     return (
         <div>
             <div className="backdropWrapper" style={{backgroundImage: `url("${BACKDROP_URL}${backdrop_path}")`}}>
@@ -229,7 +233,7 @@ export const MoviePage = ({match}) => {
                     </div>
 
                     <div className='movie-discussion-comment-form-wrapper movie-page-section-content'>
-                        <CommentForm commentObjectId={movieId} mediaType={'movie'}/>
+                        <CommentForm commentObjectId={movieId} mediaType={'movie'} onSubmitHundler={onSubmitComment}/>
                     </div>
 
                     <div className='movie-discussion-comments-container'>

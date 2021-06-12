@@ -9,7 +9,7 @@ import {Footer} from './components/Footer';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 function App() {
-  const {token, userId, login, logout, ready} = useAuth();
+  const {token, userId, login, logout, ready, userFullName} = useAuth();
   const {localization, toggleLoacalization} = useLoacalization();
   const isAuthenticated = !!token;
   const routes = useRoutes(isAuthenticated);
@@ -23,7 +23,7 @@ function App() {
       localization, toggleLoacalization
     }}>
     <AuthContext.Provider value={{
-      login, logout, token, userId, isAuthenticated
+      login, logout, token, userId, isAuthenticated, userFullName
     }}>
       <Router>
         { isAuthenticated && <PrimarySearchAppBar/>}
