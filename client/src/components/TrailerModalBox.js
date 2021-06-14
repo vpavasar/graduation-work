@@ -14,7 +14,7 @@ export const TrailerModalBox = ({trailerId, onCloseHundler}) => {
                     </div>
                 </div>
                 <div className='trailer-video'>
-                    <iframe type="text/html" width="1468" height="826" src={`https://www.youtube.com/embed/${trailerId}`}>
+                    <iframe type="text/html" width="1468" height="826" src={`https://www.youtube.com/embed/${trailerId}`} title={trailerId} frameborder="0" allowfullscreen="" allow="autoplay; encrypted-media">
                     </iframe>
                 </div>
             </div>
