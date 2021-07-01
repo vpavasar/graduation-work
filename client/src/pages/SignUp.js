@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
+ц
 export const SignUp = () => {
   const {request} = useHttp();
   const {localization} = useContext(LocalizationContext);
